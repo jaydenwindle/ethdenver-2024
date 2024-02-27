@@ -1,0 +1,17 @@
+syntax = "proto3";
+package mycelia.mycelia;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "mycelia/mycelia/params.proto";
+
+option go_package = "github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/types";
+
+// GenesisState defines the mycelia module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

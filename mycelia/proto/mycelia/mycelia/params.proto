@@ -1,0 +1,15 @@
+syntax = "proto3";
+package mycelia.mycelia;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "mycelia/x/mycelia/Params";
+  option (gogoproto.equal) = true;
+
+  
+}
