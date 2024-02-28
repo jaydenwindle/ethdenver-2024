@@ -81,7 +81,7 @@ endif
 ifeq (,$(findstring nostrip,$(COSMOS_BUILD_OPTIONS)))
   ldflags += -w -s
 endif
-# ldflags += $(LDFLAGS)
+ldflags += $(LDFLAGS)
 ldflags := $(strip $(ldflags))
 
 build_tags += $(BUILD_TAGS)
