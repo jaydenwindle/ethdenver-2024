@@ -16,5 +16,5 @@ require (
 	github.com/bytemare/secret-sharing v0.1.0 // indirect
 	github.com/gtank/ristretto255 v0.1.2 // indirect
 	golang.org/x/crypto v0.8.0 // indirect
-	golang.org/x/sys v0.7.0 // indirect
+	golang.org/x/sys v0.17.0 // indirect
 )
