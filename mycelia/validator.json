@@ -1,0 +1,16 @@
+{
+  "pubkey": {
+    "@type": "/cosmos.crypto.ed25519.PubKey",
+    "key": "yLPS6EqLXY6t4C0Jm9Mu6b7Y+vsK+GjF59rGUYX/7qI="
+  },
+  "amount": "70000000000000stake",
+  "moniker": "node-2",
+  "identity": "optional identity signature (ex. UPort or Keybase)",
+  "website": "validator's (optional) website",
+  "security": "validator's (optional) security contact email",
+  "details": "validator's (optional) details",
+  "commission-rate": "0.1",
+  "commission-max-rate": "0.2",
+  "commission-max-change-rate": "0.01",
+  "min-self-delegation": "1"
+}
