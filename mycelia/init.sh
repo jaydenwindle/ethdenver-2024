@@ -39,4 +39,4 @@ $APP genesis collect-gentxs --home ./private/.$MONIKER_1
 
 $APP genesis validate --home ./private/.$MONIKER_1
 
-$APP start --minimum-gas-prices 0.001stake --home ./private/.$MONIKER_1
+$APP start --minimum-gas-prices 0.001$DENOM --home ./private/.$MONIKER_1

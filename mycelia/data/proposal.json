@@ -1,0 +1,20 @@
+{
+  "group_policy_address": "cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd",
+  "messages": [
+    {
+      "@type": "/cosmos.bank.v1beta1.MsgSend",
+      "from_address": "cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd",
+      "to_address": "cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad",
+      "amount": [
+        {
+          "denom": "stake",
+          "amount": "100"
+        }
+      ]
+    }
+  ],
+  "metadata": "ipfs://QmearrgtJxKHu37HnNjU1AQMnvWoXqwh6cWR8mytBJoFVv",
+  "proposers": [
+    "cosmos1cuq4nl65s3d8l35c80tvfpga6v842j827mmgd7"
+  ]
+}
