@@ -9,3 +9,4 @@ release/
 *.ign
 private/
 build/
+mycelia/data/
