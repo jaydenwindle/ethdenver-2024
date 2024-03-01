@@ -16,6 +16,16 @@ service Msg {
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+
+  // PostRound1Data defines an operation for posting round 1 data for each
+  // participant. This is the first step in the key generation for forst
+  // signatures.
+  rpc PostRound1Data(MsgPostRound1Data) returns (MsgPostRound1DataResponse);
+
+  // PostRound2Data defines an operation for posting round 2 data for each
+  // participant This is the second step in the key generation for forst
+  // signatures.
+  rpc PostRound2Data(MsgPostRound2Data) returns (MsgPostRound2DataResponse);
 }
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
@@ -23,18 +33,45 @@ message MsgUpdateParams {
   option (cosmos.msg.v1.signer) = "authority";
   option (amino.name) = "mycelia/x/mycelia/MsgUpdateParams";
 
-  // authority is the address that controls the module (defaults to x/gov unless overwritten).
-  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  // authority is the address that controls the module (defaults to x/gov unless
+  // overwritten).
+  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
 
   // params defines the module parameters to update.
   //
   // NOTE: All parameters must be supplied.
-  Params params = 2 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 2
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
 }
 
 // MsgUpdateParamsResponse defines the response structure for executing a
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
+
+// MsgUpdateParams is the Msg/PostRound1Data request type.
+message MsgPostRound1Data {
+  option (cosmos.msg.v1.signer) = "participant";
+  option (amino.name) = "mycelia/x/mycelia/MsgPostRound1";
+
+  string participant = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+
+  bytes round_1_data = 2;
+}
+
+// MsgPostRound1DataResponse defines the response structure for executing a
+// MsgPostRound1Data message.
+message MsgPostRound1DataResponse {}
+
+// MsgUpdateParams is the Msg/PostRound1Data request type.
+message MsgPostRound2Data {
+  option (cosmos.msg.v1.signer) = "participant";
+  option (amino.name) = "mycelia/x/mycelia/MsgPostRound2";
+
+  string participant = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+
+  map<string, bytes> round_2_data = 2;
+}
+
+// MsgPostRound2DataResponse defines the response structure for executing a
+// MsgPostRound2Data message.
+message MsgPostRound2DataResponse {}

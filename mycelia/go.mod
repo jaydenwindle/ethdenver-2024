@@ -24,6 +24,8 @@ require (
 	cosmossdk.io/x/nft v0.1.0
 	cosmossdk.io/x/upgrade v0.1.1
 	github.com/bufbuild/buf v1.28.1
+	github.com/bytemare/crypto v0.5.2
+	github.com/bytemare/frost v0.0.0-20231127024126-bc6f7874b253
 	github.com/cometbft/cometbft v0.38.5
 	github.com/cosmos/cosmos-db v1.0.0
 	github.com/cosmos/cosmos-proto v1.0.0-beta.3
@@ -60,6 +62,7 @@ require (
 	cosmossdk.io/math v1.2.0 // indirect
 	cosmossdk.io/x/tx v0.13.0 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
+	filippo.io/nistec v0.0.2 // indirect
 	github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 // indirect
 	github.com/99designs/keyring v1.2.1 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
@@ -75,6 +78,10 @@ require (
 	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
 	github.com/bufbuild/protocompile v0.6.1-0.20231108163138-146b831231f7 // indirect
 	github.com/bufbuild/protovalidate-go v0.4.1 // indirect
+	github.com/bytemare/hash v0.1.5 // indirect
+	github.com/bytemare/hash2curve v0.2.2 // indirect
+	github.com/bytemare/secp256k1 v0.1.0 // indirect
+	github.com/bytemare/secret-sharing v0.1.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
@@ -147,6 +154,7 @@ require (
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
+	github.com/gtank/ristretto255 v0.1.2 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-getter v1.7.3 // indirect
 	github.com/hashicorp/go-hclog v1.5.0 // indirect

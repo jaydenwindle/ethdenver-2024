@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName = "/mycelia.mycelia.Query/Params"
+	Query_Params_FullMethodName     = "/mycelia.mycelia.Query/Params"
+	Query_Round1Data_FullMethodName = "/mycelia.mycelia.Query/Round1Data"
+	Query_Round2Data_FullMethodName = "/mycelia.mycelia.Query/Round2Data"
 )
 
 // QueryClient is the client API for Query service.
@@ -28,6 +30,10 @@ const (
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	// Round1Data queries the the round 1 data of all the participants in the dkg
+	Round1Data(ctx context.Context, in *QueryRound1Data, opts ...grpc.CallOption) (*QueryRound1DataResponse, error)
+	// Round2Data queries the the round 2 data of all the participants in the dkg
+	Round2Data(ctx context.Context, in *QueryRound2Data, opts ...grpc.CallOption) (*QueryRound2DataResponse, error)
 }
 
 type queryClient struct {
@@ -47,12 +53,34 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) Round1Data(ctx context.Context, in *QueryRound1Data, opts ...grpc.CallOption) (*QueryRound1DataResponse, error) {
+	out := new(QueryRound1DataResponse)
+	err := c.cc.Invoke(ctx, Query_Round1Data_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) Round2Data(ctx context.Context, in *QueryRound2Data, opts ...grpc.CallOption) (*QueryRound2DataResponse, error) {
+	out := new(QueryRound2DataResponse)
+	err := c.cc.Invoke(ctx, Query_Round2Data_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	// Round1Data queries the the round 1 data of all the participants in the dkg
+	Round1Data(context.Context, *QueryRound1Data) (*QueryRound1DataResponse, error)
+	// Round2Data queries the the round 2 data of all the participants in the dkg
+	Round2Data(context.Context, *QueryRound2Data) (*QueryRound2DataResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -62,6 +90,12 @@ type UnimplementedQueryServer struct {
 
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (UnimplementedQueryServer) Round1Data(context.Context, *QueryRound1Data) (*QueryRound1DataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Round1Data not implemented")
+}
+func (UnimplementedQueryServer) Round2Data(context.Context, *QueryRound2Data) (*QueryRound2DataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Round2Data not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -94,6 +128,42 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Round1Data_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryRound1Data)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Round1Data(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Round1Data_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Round1Data(ctx, req.(*QueryRound1Data))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_Round2Data_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryRound2Data)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Round2Data(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Round2Data_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Round2Data(ctx, req.(*QueryRound2Data))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -104,6 +174,14 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
+		},
+		{
+			MethodName: "Round1Data",
+			Handler:    _Query_Round1Data_Handler,
+		},
+		{
+			MethodName: "Round2Data",
+			Handler:    _Query_Round2Data_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

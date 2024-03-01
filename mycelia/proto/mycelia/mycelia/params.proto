@@ -10,6 +10,4 @@ option go_package = "github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/ty
 message Params {
   option (amino.name) = "mycelia/x/mycelia/Params";
   option (gogoproto.equal) = true;
-
-  
 }

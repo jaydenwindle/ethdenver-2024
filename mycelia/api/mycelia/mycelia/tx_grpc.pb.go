@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName = "/mycelia.mycelia.Msg/UpdateParams"
+	Msg_UpdateParams_FullMethodName   = "/mycelia.mycelia.Msg/UpdateParams"
+	Msg_PostRound1Data_FullMethodName = "/mycelia.mycelia.Msg/PostRound1Data"
+	Msg_PostRound2Data_FullMethodName = "/mycelia.mycelia.Msg/PostRound2Data"
 )
 
 // MsgClient is the client API for Msg service.
@@ -29,6 +31,14 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	// PostRound1Data defines an operation for posting round 1 data for each
+	// participant. This is the first step in the key generation for forst
+	// signatures.
+	PostRound1Data(ctx context.Context, in *MsgPostRound1Data, opts ...grpc.CallOption) (*MsgPostRound1DataResponse, error)
+	// PostRound2Data defines an operation for posting round 2 data for each
+	// participant This is the second step in the key generation for forst
+	// signatures.
+	PostRound2Data(ctx context.Context, in *MsgPostRound2Data, opts ...grpc.CallOption) (*MsgPostRound2DataResponse, error)
 }
 
 type msgClient struct {
@@ -48,6 +58,24 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) PostRound1Data(ctx context.Context, in *MsgPostRound1Data, opts ...grpc.CallOption) (*MsgPostRound1DataResponse, error) {
+	out := new(MsgPostRound1DataResponse)
+	err := c.cc.Invoke(ctx, Msg_PostRound1Data_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) PostRound2Data(ctx context.Context, in *MsgPostRound2Data, opts ...grpc.CallOption) (*MsgPostRound2DataResponse, error) {
+	out := new(MsgPostRound2DataResponse)
+	err := c.cc.Invoke(ctx, Msg_PostRound2Data_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -55,6 +83,14 @@ type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	// PostRound1Data defines an operation for posting round 1 data for each
+	// participant. This is the first step in the key generation for forst
+	// signatures.
+	PostRound1Data(context.Context, *MsgPostRound1Data) (*MsgPostRound1DataResponse, error)
+	// PostRound2Data defines an operation for posting round 2 data for each
+	// participant This is the second step in the key generation for forst
+	// signatures.
+	PostRound2Data(context.Context, *MsgPostRound2Data) (*MsgPostRound2DataResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -64,6 +100,12 @@ type UnimplementedMsgServer struct {
 
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (UnimplementedMsgServer) PostRound1Data(context.Context, *MsgPostRound1Data) (*MsgPostRound1DataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostRound1Data not implemented")
+}
+func (UnimplementedMsgServer) PostRound2Data(context.Context, *MsgPostRound2Data) (*MsgPostRound2DataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostRound2Data not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -96,6 +138,42 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_PostRound1Data_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostRound1Data)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostRound1Data(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_PostRound1Data_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostRound1Data(ctx, req.(*MsgPostRound1Data))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_PostRound2Data_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostRound2Data)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostRound2Data(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_PostRound2Data_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostRound2Data(ctx, req.(*MsgPostRound2Data))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -106,6 +184,14 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "PostRound1Data",
+			Handler:    _Msg_PostRound1Data_Handler,
+		},
+		{
+			MethodName: "PostRound2Data",
+			Handler:    _Msg_PostRound2Data_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

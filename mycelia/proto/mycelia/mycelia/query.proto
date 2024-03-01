@@ -4,7 +4,6 @@ package mycelia.mycelia;
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycelia/mycelia/params.proto";
 
 option go_package = "github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/types";
@@ -15,6 +14,16 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/params";
   }
+
+  // Round1Data queries the the round 1 data of all the participants in the dkg
+  rpc Round1Data(QueryRound1Data) returns (QueryRound1DataResponse) {
+    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/round1data";
+  }
+
+  // Round2Data queries the the round 2 data of all the participants in the dkg
+  rpc Round2Data(QueryRound2Data) returns (QueryRound2DataResponse) {
+    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/round2data";
+  }
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -23,8 +32,18 @@ message QueryParamsRequest {}
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
   // params holds all the parameters of this module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 1
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
 }
+
+// QueryRound1Data is request type for the Query/Round1Data RPC method.
+message QueryRound1Data {}
+
+// QueryRound1DataResponse is response type for the Query/Round1Data RPC method.
+message QueryRound1DataResponse { bytes accumlated_round_1_data = 1; }
+
+// QueryRound2Data is request type for the Query/Round2Data RPC method.
+message QueryRound2Data { string identifier = 1; }
+
+// QueryRound2DataResponse is response type for the Query/Round2Data RPC method.
+message QueryRound2DataResponse { bytes accumlated_round_2_data = 1; }

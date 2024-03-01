@@ -33,7 +33,8 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
 type MsgUpdateParams struct {
-	// authority is the address that controls the module (defaults to x/gov unless overwritten).
+	// authority is the address that controls the module (defaults to x/gov unless
+	// overwritten).
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
 	// params defines the module parameters to update.
 	//
@@ -126,38 +127,237 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
+// MsgUpdateParams is the Msg/PostRound1Data request type.
+type MsgPostRound1Data struct {
+	Participant string `protobuf:"bytes,1,opt,name=participant,proto3" json:"participant,omitempty"`
+	Round_1Data []byte `protobuf:"bytes,2,opt,name=round_1_data,json=round1Data,proto3" json:"round_1_data,omitempty"`
+}
+
+func (m *MsgPostRound1Data) Reset()         { *m = MsgPostRound1Data{} }
+func (m *MsgPostRound1Data) String() string { return proto.CompactTextString(m) }
+func (*MsgPostRound1Data) ProtoMessage()    {}
+func (*MsgPostRound1Data) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{2}
+}
+func (m *MsgPostRound1Data) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostRound1Data) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostRound1Data.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostRound1Data) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostRound1Data.Merge(m, src)
+}
+func (m *MsgPostRound1Data) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostRound1Data) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostRound1Data.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostRound1Data proto.InternalMessageInfo
+
+func (m *MsgPostRound1Data) GetParticipant() string {
+	if m != nil {
+		return m.Participant
+	}
+	return ""
+}
+
+func (m *MsgPostRound1Data) GetRound_1Data() []byte {
+	if m != nil {
+		return m.Round_1Data
+	}
+	return nil
+}
+
+// MsgPostRound1DataResponse defines the response structure for executing a
+// MsgPostRound1Data message.
+type MsgPostRound1DataResponse struct {
+}
+
+func (m *MsgPostRound1DataResponse) Reset()         { *m = MsgPostRound1DataResponse{} }
+func (m *MsgPostRound1DataResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgPostRound1DataResponse) ProtoMessage()    {}
+func (*MsgPostRound1DataResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{3}
+}
+func (m *MsgPostRound1DataResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostRound1DataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostRound1DataResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostRound1DataResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostRound1DataResponse.Merge(m, src)
+}
+func (m *MsgPostRound1DataResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostRound1DataResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostRound1DataResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostRound1DataResponse proto.InternalMessageInfo
+
+// MsgUpdateParams is the Msg/PostRound1Data request type.
+type MsgPostRound2Data struct {
+	Participant string            `protobuf:"bytes,1,opt,name=participant,proto3" json:"participant,omitempty"`
+	Round_2Data map[string][]byte `protobuf:"bytes,2,rep,name=round_2_data,json=round2Data,proto3" json:"round_2_data,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+func (m *MsgPostRound2Data) Reset()         { *m = MsgPostRound2Data{} }
+func (m *MsgPostRound2Data) String() string { return proto.CompactTextString(m) }
+func (*MsgPostRound2Data) ProtoMessage()    {}
+func (*MsgPostRound2Data) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{4}
+}
+func (m *MsgPostRound2Data) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostRound2Data) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostRound2Data.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostRound2Data) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostRound2Data.Merge(m, src)
+}
+func (m *MsgPostRound2Data) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostRound2Data) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostRound2Data.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostRound2Data proto.InternalMessageInfo
+
+func (m *MsgPostRound2Data) GetParticipant() string {
+	if m != nil {
+		return m.Participant
+	}
+	return ""
+}
+
+func (m *MsgPostRound2Data) GetRound_2Data() map[string][]byte {
+	if m != nil {
+		return m.Round_2Data
+	}
+	return nil
+}
+
+// MsgPostRound2DataResponse defines the response structure for executing a
+// MsgPostRound2Data message.
+type MsgPostRound2DataResponse struct {
+}
+
+func (m *MsgPostRound2DataResponse) Reset()         { *m = MsgPostRound2DataResponse{} }
+func (m *MsgPostRound2DataResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgPostRound2DataResponse) ProtoMessage()    {}
+func (*MsgPostRound2DataResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{5}
+}
+func (m *MsgPostRound2DataResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostRound2DataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostRound2DataResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostRound2DataResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostRound2DataResponse.Merge(m, src)
+}
+func (m *MsgPostRound2DataResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostRound2DataResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostRound2DataResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostRound2DataResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "mycelia.mycelia.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "mycelia.mycelia.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgPostRound1Data)(nil), "mycelia.mycelia.MsgPostRound1Data")
+	proto.RegisterType((*MsgPostRound1DataResponse)(nil), "mycelia.mycelia.MsgPostRound1DataResponse")
+	proto.RegisterType((*MsgPostRound2Data)(nil), "mycelia.mycelia.MsgPostRound2Data")
+	proto.RegisterMapType((map[string][]byte)(nil), "mycelia.mycelia.MsgPostRound2Data.Round2DataEntry")
+	proto.RegisterType((*MsgPostRound2DataResponse)(nil), "mycelia.mycelia.MsgPostRound2DataResponse")
 }
 
 func init() { proto.RegisterFile("mycelia/mycelia/tx.proto", fileDescriptor_240f06b5d3b6e8db) }
 
 var fileDescriptor_240f06b5d3b6e8db = []byte{
-	// 354 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0xc8, 0xad, 0x4c, 0x4e,
-	0xcd, 0xc9, 0x4c, 0xd4, 0x87, 0xd1, 0x25, 0x15, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0xfc,
-	0x50, 0x11, 0x3d, 0x28, 0x2d, 0x25, 0x98, 0x98, 0x9b, 0x99, 0x97, 0xaf, 0x0f, 0x26, 0x21, 0x6a,
-	0xa4, 0xc4, 0x93, 0xf3, 0x8b, 0x73, 0xf3, 0x8b, 0xf5, 0x73, 0x8b, 0xd3, 0xf5, 0xcb, 0x0c, 0x41,
-	0x14, 0x54, 0x42, 0x12, 0x22, 0x11, 0x0f, 0xe6, 0xe9, 0x43, 0x38, 0x50, 0x29, 0x91, 0xf4, 0xfc,
-	0xf4, 0x7c, 0x88, 0x38, 0x88, 0x05, 0x15, 0x95, 0x41, 0x77, 0x47, 0x41, 0x62, 0x51, 0x62, 0x2e,
-	0x54, 0x8f, 0xd2, 0x6e, 0x46, 0x2e, 0x7e, 0xdf, 0xe2, 0xf4, 0xd0, 0x82, 0x94, 0xc4, 0x92, 0xd4,
-	0x00, 0xb0, 0x8c, 0x90, 0x19, 0x17, 0x67, 0x62, 0x69, 0x49, 0x46, 0x7e, 0x51, 0x66, 0x49, 0xa5,
-	0x04, 0xa3, 0x02, 0xa3, 0x06, 0xa7, 0x93, 0xc4, 0xa5, 0x2d, 0xba, 0x22, 0x50, 0xcb, 0x1c, 0x53,
-	0x52, 0x8a, 0x52, 0x8b, 0x8b, 0x83, 0x4b, 0x8a, 0x32, 0xf3, 0xd2, 0x83, 0x10, 0x4a, 0x85, 0xac,
-	0xb8, 0xd8, 0x20, 0x66, 0x4b, 0x30, 0x29, 0x30, 0x6a, 0x70, 0x1b, 0x89, 0xeb, 0xa1, 0x79, 0x54,
-	0x0f, 0x62, 0x81, 0x13, 0xe7, 0x89, 0x7b, 0xf2, 0x0c, 0x2b, 0x9e, 0x6f, 0xd0, 0x62, 0x0c, 0x82,
-	0xea, 0xb0, 0x32, 0x69, 0x7a, 0xbe, 0x41, 0x0b, 0x61, 0x56, 0xd7, 0xf3, 0x0d, 0x5a, 0x8a, 0x30,
-	0x07, 0x57, 0xc0, 0x9d, 0x8e, 0xe6, 0x52, 0x25, 0x49, 0x2e, 0x71, 0x34, 0xa1, 0xa0, 0xd4, 0xe2,
-	0x82, 0xfc, 0xbc, 0xe2, 0x54, 0xa3, 0x0c, 0x2e, 0x66, 0xdf, 0xe2, 0x74, 0xa1, 0x28, 0x2e, 0x1e,
-	0x14, 0xbf, 0x29, 0x60, 0xb8, 0x09, 0xcd, 0x00, 0x29, 0x0d, 0x42, 0x2a, 0x60, 0x56, 0x48, 0xb1,
-	0x36, 0x80, 0xbc, 0xe0, 0x14, 0x71, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f, 0x1e,
-	0xc9, 0x31, 0x4e, 0x78, 0x2c, 0xc7, 0x70, 0xe1, 0xb1, 0x1c, 0xc3, 0x8d, 0xc7, 0x72, 0x0c, 0x51,
-	0x76, 0xe9, 0x99, 0x25, 0x19, 0xa5, 0x49, 0x7a, 0xc9, 0xf9, 0xb9, 0xfa, 0x59, 0x89, 0x95, 0x29,
-	0xa9, 0x79, 0xe5, 0x99, 0x79, 0x29, 0x39, 0xa9, 0xfa, 0xa9, 0x25, 0x19, 0x29, 0xa9, 0x79, 0x65,
-	0xa9, 0x45, 0xba, 0x46, 0x06, 0x46, 0x26, 0xfa, 0x98, 0x1e, 0x2d, 0xa9, 0x2c, 0x48, 0x2d, 0x4e,
-	0x62, 0x03, 0xc7, 0x91, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xfd, 0x37, 0xd5, 0x4f, 0x4b, 0x02,
-	0x00, 0x00,
+	// 545 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x94, 0x4f, 0x8f, 0xd2, 0x40,
+	0x18, 0xc6, 0x19, 0x36, 0xbb, 0x09, 0x03, 0x11, 0xb7, 0x21, 0x01, 0xaa, 0xe9, 0x22, 0x27, 0x42,
+	0xb2, 0xad, 0x8c, 0x1b, 0x63, 0x48, 0x34, 0x91, 0xe8, 0x91, 0x64, 0x53, 0x35, 0x31, 0x7b, 0xc1,
+	0x59, 0x3a, 0x29, 0x55, 0xda, 0x69, 0x66, 0x06, 0xdc, 0xde, 0x8c, 0x47, 0x4f, 0x9e, 0xfd, 0x02,
+	0x7a, 0xf0, 0xc0, 0xc1, 0x9b, 0x5f, 0x60, 0x8f, 0x1b, 0x4f, 0x9e, 0x8c, 0x81, 0x03, 0x5f, 0xc3,
+	0xb4, 0x9d, 0xf2, 0xa7, 0x10, 0xd9, 0xe8, 0x85, 0x99, 0x79, 0xdf, 0x67, 0xe6, 0x79, 0x7f, 0xef,
+	0x0c, 0x85, 0x15, 0x37, 0xe8, 0x93, 0xa1, 0x83, 0x8d, 0x64, 0x14, 0x17, 0xba, 0xcf, 0xa8, 0xa0,
+	0x4a, 0x51, 0x46, 0x74, 0x39, 0xaa, 0x87, 0xd8, 0x75, 0x3c, 0x6a, 0x44, 0xbf, 0xb1, 0x46, 0x2d,
+	0xf7, 0x29, 0x77, 0x29, 0x37, 0x5c, 0x6e, 0x1b, 0xe3, 0x56, 0x38, 0xc8, 0x44, 0x35, 0x4e, 0xf4,
+	0xa2, 0x95, 0x11, 0x2f, 0x64, 0xaa, 0x64, 0x53, 0x9b, 0xc6, 0xf1, 0x70, 0x26, 0xa3, 0xb7, 0xd3,
+	0x75, 0xf8, 0x98, 0x61, 0x57, 0xee, 0xa9, 0x7f, 0x07, 0xb0, 0xd8, 0xe5, 0xf6, 0x0b, 0xdf, 0xc2,
+	0x82, 0x9c, 0x46, 0x19, 0xe5, 0x3e, 0xcc, 0xe1, 0x91, 0x18, 0x50, 0xe6, 0x88, 0xa0, 0x02, 0x6a,
+	0xa0, 0x91, 0xeb, 0x54, 0x7e, 0x7c, 0x3b, 0x2e, 0x49, 0xb3, 0xc7, 0x96, 0xc5, 0x08, 0xe7, 0xcf,
+	0x04, 0x73, 0x3c, 0xdb, 0x5c, 0x4a, 0x95, 0x36, 0x3c, 0x88, 0xcf, 0xae, 0x64, 0x6b, 0xa0, 0x91,
+	0x47, 0x65, 0x3d, 0x05, 0xaa, 0xc7, 0x06, 0x9d, 0xdc, 0xe5, 0xaf, 0xa3, 0xcc, 0x97, 0xf9, 0xa4,
+	0x09, 0x4c, 0xb9, 0xa3, 0x7d, 0xf2, 0x7e, 0x3e, 0x69, 0x2e, 0xcf, 0xfa, 0x30, 0x9f, 0x34, 0xef,
+	0x24, 0x05, 0x5f, 0x2c, 0x4a, 0x4f, 0x55, 0x5a, 0xaf, 0xc2, 0x72, 0x2a, 0x64, 0x12, 0xee, 0x53,
+	0x8f, 0x93, 0xfa, 0x67, 0x00, 0x0f, 0xbb, 0xdc, 0x3e, 0xa5, 0x5c, 0x98, 0x74, 0xe4, 0x59, 0xad,
+	0x27, 0x58, 0x60, 0xa5, 0x0d, 0xf3, 0x3e, 0x66, 0xc2, 0xe9, 0x3b, 0x3e, 0xf6, 0xc4, 0x4e, 0xb8,
+	0x55, 0xb1, 0x52, 0x83, 0x05, 0x16, 0x9e, 0xd4, 0x6b, 0xf5, 0x2c, 0x2c, 0x70, 0x04, 0x59, 0x30,
+	0x21, 0x5b, 0x9c, 0x1e, 0x43, 0xac, 0xee, 0x09, 0x31, 0x8e, 0xb6, 0x62, 0x2c, 0xeb, 0xaa, 0xdf,
+	0x82, 0xd5, 0x8d, 0x42, 0x17, 0x18, 0x9f, 0xb2, 0xeb, 0x18, 0xe8, 0xbf, 0x31, 0x9e, 0x27, 0x18,
+	0x28, 0xc1, 0xd8, 0x6b, 0xe4, 0x11, 0xda, 0xb8, 0xab, 0x0d, 0x57, 0x7d, 0x39, 0x7d, 0xea, 0x09,
+	0x16, 0x48, 0xf4, 0x28, 0xa0, 0x3e, 0x84, 0xc5, 0x54, 0x5a, 0xb9, 0x09, 0xf7, 0xde, 0x10, 0xf9,
+	0x80, 0xcc, 0x70, 0xaa, 0x94, 0xe0, 0xfe, 0x18, 0x0f, 0x47, 0x44, 0xb6, 0x2e, 0x5e, 0xb4, 0xb3,
+	0x0f, 0xc0, 0x3f, 0x75, 0x0e, 0xa5, 0x3b, 0x87, 0x56, 0x3b, 0x87, 0xbe, 0x66, 0xe1, 0x5e, 0x97,
+	0xdb, 0xca, 0x19, 0x2c, 0xac, 0xbd, 0xee, 0xda, 0x36, 0xd2, 0x55, 0x85, 0xda, 0xd8, 0xa5, 0x48,
+	0x3c, 0x94, 0x57, 0xf0, 0x46, 0xea, 0x81, 0xd5, 0xff, 0xda, 0xc7, 0x48, 0xa3, 0x36, 0x77, 0x6b,
+	0xb6, 0x3a, 0xa0, 0x6b, 0x38, 0xa0, 0x6b, 0x38, 0xac, 0xf5, 0x49, 0xdd, 0x7f, 0x17, 0xfe, 0x11,
+	0x3b, 0x2f, 0x2f, 0xa7, 0x1a, 0xb8, 0x9a, 0x6a, 0xe0, 0xf7, 0x54, 0x03, 0x1f, 0x67, 0x5a, 0xe6,
+	0x6a, 0xa6, 0x65, 0x7e, 0xce, 0xb4, 0xcc, 0xd9, 0x23, 0xdb, 0x11, 0x83, 0xd1, 0xb9, 0xde, 0xa7,
+	0xae, 0xf1, 0x1a, 0x07, 0x16, 0xf1, 0xde, 0x3a, 0x9e, 0x35, 0x24, 0x06, 0x11, 0x03, 0x8b, 0x78,
+	0x63, 0xc2, 0x8e, 0xd1, 0x5d, 0x74, 0x62, 0x6c, 0xde, 0x96, 0x08, 0x7c, 0xc2, 0xcf, 0x0f, 0xa2,
+	0x2f, 0xcd, 0xbd, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x06, 0x6c, 0x4a, 0xb5, 0x11, 0x05, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -175,6 +375,14 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	// PostRound1Data defines an operation for posting round 1 data for each
+	// participant. This is the first step in the key generation for forst
+	// signatures.
+	PostRound1Data(ctx context.Context, in *MsgPostRound1Data, opts ...grpc.CallOption) (*MsgPostRound1DataResponse, error)
+	// PostRound2Data defines an operation for posting round 2 data for each
+	// participant This is the second step in the key generation for forst
+	// signatures.
+	PostRound2Data(ctx context.Context, in *MsgPostRound2Data, opts ...grpc.CallOption) (*MsgPostRound2DataResponse, error)
 }
 
 type msgClient struct {
@@ -194,11 +402,37 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) PostRound1Data(ctx context.Context, in *MsgPostRound1Data, opts ...grpc.CallOption) (*MsgPostRound1DataResponse, error) {
+	out := new(MsgPostRound1DataResponse)
+	err := c.cc.Invoke(ctx, "/mycelia.mycelia.Msg/PostRound1Data", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) PostRound2Data(ctx context.Context, in *MsgPostRound2Data, opts ...grpc.CallOption) (*MsgPostRound2DataResponse, error) {
+	out := new(MsgPostRound2DataResponse)
+	err := c.cc.Invoke(ctx, "/mycelia.mycelia.Msg/PostRound2Data", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	// PostRound1Data defines an operation for posting round 1 data for each
+	// participant. This is the first step in the key generation for forst
+	// signatures.
+	PostRound1Data(context.Context, *MsgPostRound1Data) (*MsgPostRound1DataResponse, error)
+	// PostRound2Data defines an operation for posting round 2 data for each
+	// participant This is the second step in the key generation for forst
+	// signatures.
+	PostRound2Data(context.Context, *MsgPostRound2Data) (*MsgPostRound2DataResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -207,6 +441,12 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (*UnimplementedMsgServer) PostRound1Data(ctx context.Context, req *MsgPostRound1Data) (*MsgPostRound1DataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostRound1Data not implemented")
+}
+func (*UnimplementedMsgServer) PostRound2Data(ctx context.Context, req *MsgPostRound2Data) (*MsgPostRound2DataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostRound2Data not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -231,6 +471,42 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_PostRound1Data_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostRound1Data)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostRound1Data(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycelia.mycelia.Msg/PostRound1Data",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostRound1Data(ctx, req.(*MsgPostRound1Data))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_PostRound2Data_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostRound2Data)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostRound2Data(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycelia.mycelia.Msg/PostRound2Data",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostRound2Data(ctx, req.(*MsgPostRound2Data))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mycelia.mycelia.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -238,6 +514,14 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "PostRound1Data",
+			Handler:    _Msg_PostRound1Data_Handler,
+		},
+		{
+			MethodName: "PostRound2Data",
+			Handler:    _Msg_PostRound2Data_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -307,6 +591,140 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgPostRound1Data) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostRound1Data) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostRound1Data) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Round_1Data) > 0 {
+		i -= len(m.Round_1Data)
+		copy(dAtA[i:], m.Round_1Data)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Round_1Data)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Participant) > 0 {
+		i -= len(m.Participant)
+		copy(dAtA[i:], m.Participant)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Participant)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgPostRound1DataResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostRound1DataResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostRound1DataResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgPostRound2Data) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostRound2Data) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostRound2Data) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Round_2Data) > 0 {
+		for k := range m.Round_2Data {
+			v := m.Round_2Data[k]
+			baseI := i
+			if len(v) > 0 {
+				i -= len(v)
+				copy(dAtA[i:], v)
+				i = encodeVarintTx(dAtA, i, uint64(len(v)))
+				i--
+				dAtA[i] = 0x12
+			}
+			i -= len(k)
+			copy(dAtA[i:], k)
+			i = encodeVarintTx(dAtA, i, uint64(len(k)))
+			i--
+			dAtA[i] = 0xa
+			i = encodeVarintTx(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if len(m.Participant) > 0 {
+		i -= len(m.Participant)
+		copy(dAtA[i:], m.Participant)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Participant)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgPostRound2DataResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostRound2DataResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostRound2DataResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -334,6 +752,66 @@ func (m *MsgUpdateParams) Size() (n int) {
 }
 
 func (m *MsgUpdateParamsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgPostRound1Data) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Participant)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Round_1Data)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgPostRound1DataResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgPostRound2Data) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Participant)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if len(m.Round_2Data) > 0 {
+		for k, v := range m.Round_2Data {
+			_ = k
+			_ = v
+			l = 0
+			if len(v) > 0 {
+				l = 1 + len(v) + sovTx(uint64(len(v)))
+			}
+			mapEntrySize := 1 + len(k) + sovTx(uint64(len(k))) + l
+			n += mapEntrySize + 1 + sovTx(uint64(mapEntrySize))
+		}
+	}
+	return n
+}
+
+func (m *MsgPostRound2DataResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -490,6 +968,432 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgUpdateParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostRound1Data) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostRound1Data: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostRound1Data: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Participant = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Round_1Data", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Round_1Data = append(m.Round_1Data[:0], dAtA[iNdEx:postIndex]...)
+			if m.Round_1Data == nil {
+				m.Round_1Data = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostRound1DataResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostRound1DataResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostRound1DataResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostRound2Data) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostRound2Data: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostRound2Data: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Participant = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Round_2Data", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Round_2Data == nil {
+				m.Round_2Data = make(map[string][]byte)
+			}
+			var mapkey string
+			mapvalue := []byte{}
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowTx
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					var stringLenmapkey uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowTx
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapkey := int(stringLenmapkey)
+					if intStringLenmapkey < 0 {
+						return ErrInvalidLengthTx
+					}
+					postStringIndexmapkey := iNdEx + intStringLenmapkey
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthTx
+					}
+					if postStringIndexmapkey > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
+					iNdEx = postStringIndexmapkey
+				} else if fieldNum == 2 {
+					var mapbyteLen uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowTx
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapbyteLen |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intMapbyteLen := int(mapbyteLen)
+					if intMapbyteLen < 0 {
+						return ErrInvalidLengthTx
+					}
+					postbytesIndex := iNdEx + intMapbyteLen
+					if postbytesIndex < 0 {
+						return ErrInvalidLengthTx
+					}
+					if postbytesIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = make([]byte, mapbyteLen)
+					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
+					iNdEx = postbytesIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipTx(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthTx
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Round_2Data[mapkey] = mapvalue
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostRound2DataResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostRound2DataResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostRound2DataResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

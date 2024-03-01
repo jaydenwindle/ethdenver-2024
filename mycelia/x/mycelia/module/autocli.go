@@ -18,6 +18,19 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:     "Shows the parameters of the module",
 				},
 				// this line is used by ignite scaffolding # autocli/query
+				{
+					RpcMethod: "Round1Data",
+					Use:       "round-1-data",
+					Short:     "Get accumulated round-1 data",
+				},
+				{
+					RpcMethod: "Round2Data",
+					Use:       "round-2-data",
+					Short:     "Get accumulated round-1 data for the participant",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "identifier"},
+					},
+				},
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
@@ -27,6 +40,22 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				{
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
+				},
+				{
+					RpcMethod: "PostRound1Data",
+					Use:       "post-round-1",
+					Short:     "post round 1 data from the participant",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "participant"}, {ProtoField: "round_1_data"},
+					},
+				},
+				{
+					RpcMethod: "PostRound2Data",
+					Use:       "post-round-2",
+					Short:     "post round 2 data from the participant",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "participant"}, {ProtoField: "round_2_data"},
+					},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

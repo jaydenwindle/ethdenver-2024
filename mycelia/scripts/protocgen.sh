@@ -23,3 +23,5 @@ cp -r github.com/jaydenwindle/ethdenver-2024/mycelia/* ./
 rm -rf github.com
 
 go mod tidy
+
+./scripts/protocgen-pulsar.sh
