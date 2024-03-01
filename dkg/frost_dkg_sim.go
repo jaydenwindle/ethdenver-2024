@@ -8,6 +8,7 @@ import (
 
 	"github.com/bytemare/frost"
 	"github.com/bytemare/frost/dkg"
+	"github.com/ethereum/go-ethereum/crypto"
 )
 
 var (
@@ -146,8 +147,8 @@ func main() {
 	maximumAmountOfParticipants := 4
 	numberOfParticipants := 3
 	threshold := 2
-	configuration := frost.Ristretto255.Configuration()
-	message := []byte("example")
+	configuration := frost.Secp256k1.Configuration()
+	message := crypto.Keccak256([]byte("example"))
 
 	commitmentMap = make(map[string]*frost.Commitment)
 
@@ -157,7 +158,15 @@ func main() {
 	// A coordinator CAN be a participant. In this instance, we chose it not to be one.
 	coordinator := configuration.Participant(nil, nil)
 
+	challenge := coordinator.ComputeChallenge(commitments, message)
+
+	fmt.Printf("challenge: %s\n", hex.EncodeToString(challenge.Encode()))
+
 	signature := coordinator.Aggregate(commitments, message, signatureShares[:])
+
+	fmt.Printf("group public key: %s\n", hex.EncodeToString(groupPublicKeyGeneratedInDKG.Encode()))
+	fmt.Printf("signature: %s\n", hex.EncodeToString(signature.Encode()))
+	fmt.Printf("message: %s\n", hex.EncodeToString(message))
 
 	if !frost.Verify(configuration.Ciphersuite, message, signature, groupPublicKeyGeneratedInDKG) {
 		fmt.Println("invalid signature")
@@ -171,7 +180,7 @@ func main() {
 			}
 
 			// Get the public key corresponding to the signature share's participant
-			pki := participantsGeneratedInDKG[i].ParticipantInfo.PublicKey
+			pki := participantsGeneratedInDKG[i].PublicKey
 
 			if !coordinator.VerifySignatureShare(
 				commitmentI,
