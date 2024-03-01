@@ -25,11 +25,16 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod: "Round2Data",
-					Use:       "round-2-data",
-					Short:     "Get accumulated round-1 data for the participant",
+					Use:       "round-2-data [identifier]",
+					Short:     "Get accumulated round-2 data for the participant",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
 						{ProtoField: "identifier"},
 					},
+				},
+				{
+					RpcMethod: "Commits",
+					Use:       "commits",
+					Short:     "Get commits from all the participants",
 				},
 			},
 		},
@@ -51,10 +56,26 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod: "PostRound2Data",
-					Use:       "post-round-2",
+					Use:       "post-round-2 [participant] [round_2_data]",
 					Short:     "post round 2 data from the participant",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
 						{ProtoField: "participant"}, {ProtoField: "round_2_data"},
+					},
+				},
+				{
+					RpcMethod: "PostCommit",
+					Use:       "post-commit [participant] [commitment]",
+					Short:     "post commit for signing from the participant",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "participant"}, {ProtoField: "commitment"},
+					},
+				},
+				{
+					RpcMethod: "PostSignatureShare",
+					Use:       "post-signature-share [participant] [signature_share]",
+					Short:     "post signature share from the participant",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "participant"}, {ProtoField: "signature_share"},
 					},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
