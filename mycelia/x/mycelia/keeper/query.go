@@ -41,3 +41,7 @@ func (k Keeper) Round2Data(ctx context.Context, req *types.QueryRound2Data) (*ty
 		AccumlatedRound_2Data: bz,
 	}, nil
 }
+
+func (k Keeper) Commits(context.Context, *types.QueryCommits) (*types.QueryCommitsResponse, error) {
+	return nil, nil
+}

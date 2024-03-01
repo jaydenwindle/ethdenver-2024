@@ -22,7 +22,12 @@ service Query {
 
   // Round2Data queries the the round 2 data of all the participants in the dkg
   rpc Round2Data(QueryRound2Data) returns (QueryRound2DataResponse) {
-    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/round2data";
+    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/round2data/{identifier}";
+  }
+
+  // Commits queries the commits of all the participants in the dkg
+  rpc Commits(QueryCommits) returns (QueryCommitsResponse) {
+    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/commits";
   }
 }
 
@@ -47,3 +52,9 @@ message QueryRound2Data { string identifier = 1; }
 
 // QueryRound2DataResponse is response type for the Query/Round2Data RPC method.
 message QueryRound2DataResponse { bytes accumlated_round_2_data = 1; }
+
+// QueryCommits is request type for the Query/Commits RPC method.
+message QueryCommits {}
+
+// QueryRound1DataResponse is response type for the Query/Commits RPC method.
+message QueryCommitsResponse { bytes commits = 1; }

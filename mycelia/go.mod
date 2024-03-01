@@ -24,7 +24,6 @@ require (
 	cosmossdk.io/x/nft v0.1.0
 	cosmossdk.io/x/upgrade v0.1.1
 	github.com/bufbuild/buf v1.28.1
-	github.com/bytemare/crypto v0.5.2
 	github.com/bytemare/frost v0.0.0-20231127024126-bc6f7874b253
 	github.com/cometbft/cometbft v0.38.5
 	github.com/cosmos/cosmos-db v1.0.0
@@ -78,6 +77,7 @@ require (
 	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
 	github.com/bufbuild/protocompile v0.6.1-0.20231108163138-146b831231f7 // indirect
 	github.com/bufbuild/protovalidate-go v0.4.1 // indirect
+	github.com/bytemare/crypto v0.5.2 // indirect
 	github.com/bytemare/hash v0.1.5 // indirect
 	github.com/bytemare/hash2curve v0.2.2 // indirect
 	github.com/bytemare/secp256k1 v0.1.0 // indirect

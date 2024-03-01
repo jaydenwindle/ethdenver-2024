@@ -62,3 +62,11 @@ func (s msgServer) PostRound2Data(ctx context.Context, msg *types.MsgPostRound2D
 
 	return &types.MsgPostRound2DataResponse{}, nil
 }
+
+func (s msgServer) PostCommit(context.Context, *types.MsgPostCommit) (*types.MsgPostCommitResponse, error) {
+	return nil, nil
+}
+
+func (s msgServer) PostSignatureShare(context.Context, *types.MsgPostSignatureShare) (*types.MsgPostSignatureShareResponse, error) {
+	return nil, nil
+}

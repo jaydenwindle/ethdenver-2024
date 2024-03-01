@@ -19,9 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName   = "/mycelia.mycelia.Msg/UpdateParams"
-	Msg_PostRound1Data_FullMethodName = "/mycelia.mycelia.Msg/PostRound1Data"
-	Msg_PostRound2Data_FullMethodName = "/mycelia.mycelia.Msg/PostRound2Data"
+	Msg_UpdateParams_FullMethodName       = "/mycelia.mycelia.Msg/UpdateParams"
+	Msg_PostRound1Data_FullMethodName     = "/mycelia.mycelia.Msg/PostRound1Data"
+	Msg_PostRound2Data_FullMethodName     = "/mycelia.mycelia.Msg/PostRound2Data"
+	Msg_PostCommit_FullMethodName         = "/mycelia.mycelia.Msg/PostCommit"
+	Msg_PostSignatureShare_FullMethodName = "/mycelia.mycelia.Msg/PostSignatureShare"
 )
 
 // MsgClient is the client API for Msg service.
@@ -39,6 +41,12 @@ type MsgClient interface {
 	// participant This is the second step in the key generation for forst
 	// signatures.
 	PostRound2Data(ctx context.Context, in *MsgPostRound2Data, opts ...grpc.CallOption) (*MsgPostRound2DataResponse, error)
+	// PostCommit defines an operation for posting commits for each
+	// participant.
+	PostCommit(ctx context.Context, in *MsgPostCommit, opts ...grpc.CallOption) (*MsgPostCommitResponse, error)
+	// PostSignatureShare defines an operation for posting signature share for each
+	// participant.
+	PostSignatureShare(ctx context.Context, in *MsgPostSignatureShare, opts ...grpc.CallOption) (*MsgPostSignatureShareResponse, error)
 }
 
 type msgClient struct {
@@ -76,6 +84,24 @@ func (c *msgClient) PostRound2Data(ctx context.Context, in *MsgPostRound2Data, o
 	return out, nil
 }
 
+func (c *msgClient) PostCommit(ctx context.Context, in *MsgPostCommit, opts ...grpc.CallOption) (*MsgPostCommitResponse, error) {
+	out := new(MsgPostCommitResponse)
+	err := c.cc.Invoke(ctx, Msg_PostCommit_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) PostSignatureShare(ctx context.Context, in *MsgPostSignatureShare, opts ...grpc.CallOption) (*MsgPostSignatureShareResponse, error) {
+	out := new(MsgPostSignatureShareResponse)
+	err := c.cc.Invoke(ctx, Msg_PostSignatureShare_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -91,6 +117,12 @@ type MsgServer interface {
 	// participant This is the second step in the key generation for forst
 	// signatures.
 	PostRound2Data(context.Context, *MsgPostRound2Data) (*MsgPostRound2DataResponse, error)
+	// PostCommit defines an operation for posting commits for each
+	// participant.
+	PostCommit(context.Context, *MsgPostCommit) (*MsgPostCommitResponse, error)
+	// PostSignatureShare defines an operation for posting signature share for each
+	// participant.
+	PostSignatureShare(context.Context, *MsgPostSignatureShare) (*MsgPostSignatureShareResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -106,6 +138,12 @@ func (UnimplementedMsgServer) PostRound1Data(context.Context, *MsgPostRound1Data
 }
 func (UnimplementedMsgServer) PostRound2Data(context.Context, *MsgPostRound2Data) (*MsgPostRound2DataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostRound2Data not implemented")
+}
+func (UnimplementedMsgServer) PostCommit(context.Context, *MsgPostCommit) (*MsgPostCommitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostCommit not implemented")
+}
+func (UnimplementedMsgServer) PostSignatureShare(context.Context, *MsgPostSignatureShare) (*MsgPostSignatureShareResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostSignatureShare not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -174,6 +212,42 @@ func _Msg_PostRound2Data_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_PostCommit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostCommit)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostCommit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_PostCommit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostCommit(ctx, req.(*MsgPostCommit))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_PostSignatureShare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostSignatureShare)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostSignatureShare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_PostSignatureShare_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostSignatureShare(ctx, req.(*MsgPostSignatureShare))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -192,6 +266,14 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PostRound2Data",
 			Handler:    _Msg_PostRound2Data_Handler,
+		},
+		{
+			MethodName: "PostCommit",
+			Handler:    _Msg_PostCommit_Handler,
+		},
+		{
+			MethodName: "PostSignatureShare",
+			Handler:    _Msg_PostSignatureShare_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

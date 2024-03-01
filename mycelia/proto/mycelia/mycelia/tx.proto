@@ -26,6 +26,14 @@ service Msg {
   // participant This is the second step in the key generation for forst
   // signatures.
   rpc PostRound2Data(MsgPostRound2Data) returns (MsgPostRound2DataResponse);
+
+  // PostCommit defines an operation for posting commits for each
+  // participant.
+  rpc PostCommit(MsgPostCommit) returns (MsgPostCommitResponse);
+
+  // PostSignatureShare defines an operation for posting signature share for each
+  // participant.
+  rpc PostSignatureShare(MsgPostSignatureShare) returns (MsgPostSignatureShareResponse);
 }
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
@@ -75,3 +83,29 @@ message MsgPostRound2Data {
 // MsgPostRound2DataResponse defines the response structure for executing a
 // MsgPostRound2Data message.
 message MsgPostRound2DataResponse {}
+
+// MsgPostCommit is the Msg/PostCommit request type.
+message MsgPostCommit{
+  option (cosmos.msg.v1.signer) = "participant";
+  option (amino.name) = "mycelia/x/mycelia/MsgPostCommit";
+
+  string participant = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  bytes commitment = 2;
+}
+
+// MsgPostCommitResponse defines the response structure for executing a
+// MsgPostCommit message.
+message MsgPostCommitResponse{}
+
+// MsgPostSignatureShare is the Msg/PostSignatureShare request type.
+message MsgPostSignatureShare{
+  option (cosmos.msg.v1.signer) = "participant";
+  option (amino.name) = "mycelia/x/mycelia/MsgPostSignatureShare";
+
+  string participant = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  bytes signature_share = 2;
+}
+
+// MsgPostCommitResponse defines the response structure for executing a
+// MsgPostCommit message.
+message MsgPostSignatureShareResponse{}

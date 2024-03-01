@@ -22,6 +22,7 @@ const (
 	Query_Params_FullMethodName     = "/mycelia.mycelia.Query/Params"
 	Query_Round1Data_FullMethodName = "/mycelia.mycelia.Query/Round1Data"
 	Query_Round2Data_FullMethodName = "/mycelia.mycelia.Query/Round2Data"
+	Query_Commits_FullMethodName    = "/mycelia.mycelia.Query/Commits"
 )
 
 // QueryClient is the client API for Query service.
@@ -34,6 +35,8 @@ type QueryClient interface {
 	Round1Data(ctx context.Context, in *QueryRound1Data, opts ...grpc.CallOption) (*QueryRound1DataResponse, error)
 	// Round2Data queries the the round 2 data of all the participants in the dkg
 	Round2Data(ctx context.Context, in *QueryRound2Data, opts ...grpc.CallOption) (*QueryRound2DataResponse, error)
+	// Commits queries the commits of all the participants in the dkg
+	Commits(ctx context.Context, in *QueryCommits, opts ...grpc.CallOption) (*QueryCommitsResponse, error)
 }
 
 type queryClient struct {
@@ -71,6 +74,15 @@ func (c *queryClient) Round2Data(ctx context.Context, in *QueryRound2Data, opts 
 	return out, nil
 }
 
+func (c *queryClient) Commits(ctx context.Context, in *QueryCommits, opts ...grpc.CallOption) (*QueryCommitsResponse, error) {
+	out := new(QueryCommitsResponse)
+	err := c.cc.Invoke(ctx, Query_Commits_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -81,6 +93,8 @@ type QueryServer interface {
 	Round1Data(context.Context, *QueryRound1Data) (*QueryRound1DataResponse, error)
 	// Round2Data queries the the round 2 data of all the participants in the dkg
 	Round2Data(context.Context, *QueryRound2Data) (*QueryRound2DataResponse, error)
+	// Commits queries the commits of all the participants in the dkg
+	Commits(context.Context, *QueryCommits) (*QueryCommitsResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -96,6 +110,9 @@ func (UnimplementedQueryServer) Round1Data(context.Context, *QueryRound1Data) (*
 }
 func (UnimplementedQueryServer) Round2Data(context.Context, *QueryRound2Data) (*QueryRound2DataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Round2Data not implemented")
+}
+func (UnimplementedQueryServer) Commits(context.Context, *QueryCommits) (*QueryCommitsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Commits not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -164,6 +181,24 @@ func _Query_Round2Data_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Commits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCommits)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Commits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Commits_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Commits(ctx, req.(*QueryCommits))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +217,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Round2Data",
 			Handler:    _Query_Round2Data_Handler,
+		},
+		{
+			MethodName: "Commits",
+			Handler:    _Query_Commits_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

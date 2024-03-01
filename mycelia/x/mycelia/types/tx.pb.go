@@ -309,6 +309,188 @@ func (m *MsgPostRound2DataResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgPostRound2DataResponse proto.InternalMessageInfo
 
+// MsgPostCommit is the Msg/PostCommit request type.
+type MsgPostCommit struct {
+	Participant string `protobuf:"bytes,1,opt,name=participant,proto3" json:"participant,omitempty"`
+	Commitment  []byte `protobuf:"bytes,2,opt,name=commitment,proto3" json:"commitment,omitempty"`
+}
+
+func (m *MsgPostCommit) Reset()         { *m = MsgPostCommit{} }
+func (m *MsgPostCommit) String() string { return proto.CompactTextString(m) }
+func (*MsgPostCommit) ProtoMessage()    {}
+func (*MsgPostCommit) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{6}
+}
+func (m *MsgPostCommit) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostCommit) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostCommit.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostCommit) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostCommit.Merge(m, src)
+}
+func (m *MsgPostCommit) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostCommit) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostCommit.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostCommit proto.InternalMessageInfo
+
+func (m *MsgPostCommit) GetParticipant() string {
+	if m != nil {
+		return m.Participant
+	}
+	return ""
+}
+
+func (m *MsgPostCommit) GetCommitment() []byte {
+	if m != nil {
+		return m.Commitment
+	}
+	return nil
+}
+
+// MsgPostCommitResponse defines the response structure for executing a
+// MsgPostCommit message.
+type MsgPostCommitResponse struct {
+}
+
+func (m *MsgPostCommitResponse) Reset()         { *m = MsgPostCommitResponse{} }
+func (m *MsgPostCommitResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgPostCommitResponse) ProtoMessage()    {}
+func (*MsgPostCommitResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{7}
+}
+func (m *MsgPostCommitResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostCommitResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostCommitResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostCommitResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostCommitResponse.Merge(m, src)
+}
+func (m *MsgPostCommitResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostCommitResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostCommitResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostCommitResponse proto.InternalMessageInfo
+
+// MsgPostSignatureShare is the Msg/PostSignatureShare request type.
+type MsgPostSignatureShare struct {
+	Participant    string `protobuf:"bytes,1,opt,name=participant,proto3" json:"participant,omitempty"`
+	SignatureShare []byte `protobuf:"bytes,2,opt,name=signature_share,json=signatureShare,proto3" json:"signature_share,omitempty"`
+}
+
+func (m *MsgPostSignatureShare) Reset()         { *m = MsgPostSignatureShare{} }
+func (m *MsgPostSignatureShare) String() string { return proto.CompactTextString(m) }
+func (*MsgPostSignatureShare) ProtoMessage()    {}
+func (*MsgPostSignatureShare) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{8}
+}
+func (m *MsgPostSignatureShare) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostSignatureShare) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostSignatureShare.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostSignatureShare) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostSignatureShare.Merge(m, src)
+}
+func (m *MsgPostSignatureShare) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostSignatureShare) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostSignatureShare.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostSignatureShare proto.InternalMessageInfo
+
+func (m *MsgPostSignatureShare) GetParticipant() string {
+	if m != nil {
+		return m.Participant
+	}
+	return ""
+}
+
+func (m *MsgPostSignatureShare) GetSignatureShare() []byte {
+	if m != nil {
+		return m.SignatureShare
+	}
+	return nil
+}
+
+// MsgPostCommitResponse defines the response structure for executing a
+// MsgPostCommit message.
+type MsgPostSignatureShareResponse struct {
+}
+
+func (m *MsgPostSignatureShareResponse) Reset()         { *m = MsgPostSignatureShareResponse{} }
+func (m *MsgPostSignatureShareResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgPostSignatureShareResponse) ProtoMessage()    {}
+func (*MsgPostSignatureShareResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_240f06b5d3b6e8db, []int{9}
+}
+func (m *MsgPostSignatureShareResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostSignatureShareResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostSignatureShareResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostSignatureShareResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostSignatureShareResponse.Merge(m, src)
+}
+func (m *MsgPostSignatureShareResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostSignatureShareResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostSignatureShareResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostSignatureShareResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "mycelia.mycelia.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "mycelia.mycelia.MsgUpdateParamsResponse")
@@ -317,47 +499,58 @@ func init() {
 	proto.RegisterType((*MsgPostRound2Data)(nil), "mycelia.mycelia.MsgPostRound2Data")
 	proto.RegisterMapType((map[string][]byte)(nil), "mycelia.mycelia.MsgPostRound2Data.Round2DataEntry")
 	proto.RegisterType((*MsgPostRound2DataResponse)(nil), "mycelia.mycelia.MsgPostRound2DataResponse")
+	proto.RegisterType((*MsgPostCommit)(nil), "mycelia.mycelia.MsgPostCommit")
+	proto.RegisterType((*MsgPostCommitResponse)(nil), "mycelia.mycelia.MsgPostCommitResponse")
+	proto.RegisterType((*MsgPostSignatureShare)(nil), "mycelia.mycelia.MsgPostSignatureShare")
+	proto.RegisterType((*MsgPostSignatureShareResponse)(nil), "mycelia.mycelia.MsgPostSignatureShareResponse")
 }
 
 func init() { proto.RegisterFile("mycelia/mycelia/tx.proto", fileDescriptor_240f06b5d3b6e8db) }
 
 var fileDescriptor_240f06b5d3b6e8db = []byte{
-	// 545 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x94, 0x4f, 0x8f, 0xd2, 0x40,
-	0x18, 0xc6, 0x19, 0x36, 0xbb, 0x09, 0x03, 0x11, 0xb7, 0x21, 0x01, 0xaa, 0xe9, 0x22, 0x27, 0x42,
-	0xb2, 0xad, 0x8c, 0x1b, 0x63, 0x48, 0x34, 0x91, 0xe8, 0x91, 0x64, 0x53, 0x35, 0x31, 0x7b, 0xc1,
-	0x59, 0x3a, 0x29, 0x55, 0xda, 0x69, 0x66, 0x06, 0xdc, 0xde, 0x8c, 0x47, 0x4f, 0x9e, 0xfd, 0x02,
-	0x7a, 0xf0, 0xc0, 0xc1, 0x9b, 0x5f, 0x60, 0x8f, 0x1b, 0x4f, 0x9e, 0x8c, 0x81, 0x03, 0x5f, 0xc3,
-	0xb4, 0x9d, 0xf2, 0xa7, 0x10, 0xd9, 0xe8, 0x85, 0x99, 0x79, 0xdf, 0x67, 0xe6, 0x79, 0x7f, 0xef,
-	0x0c, 0x85, 0x15, 0x37, 0xe8, 0x93, 0xa1, 0x83, 0x8d, 0x64, 0x14, 0x17, 0xba, 0xcf, 0xa8, 0xa0,
-	0x4a, 0x51, 0x46, 0x74, 0x39, 0xaa, 0x87, 0xd8, 0x75, 0x3c, 0x6a, 0x44, 0xbf, 0xb1, 0x46, 0x2d,
-	0xf7, 0x29, 0x77, 0x29, 0x37, 0x5c, 0x6e, 0x1b, 0xe3, 0x56, 0x38, 0xc8, 0x44, 0x35, 0x4e, 0xf4,
-	0xa2, 0x95, 0x11, 0x2f, 0x64, 0xaa, 0x64, 0x53, 0x9b, 0xc6, 0xf1, 0x70, 0x26, 0xa3, 0xb7, 0xd3,
-	0x75, 0xf8, 0x98, 0x61, 0x57, 0xee, 0xa9, 0x7f, 0x07, 0xb0, 0xd8, 0xe5, 0xf6, 0x0b, 0xdf, 0xc2,
-	0x82, 0x9c, 0x46, 0x19, 0xe5, 0x3e, 0xcc, 0xe1, 0x91, 0x18, 0x50, 0xe6, 0x88, 0xa0, 0x02, 0x6a,
-	0xa0, 0x91, 0xeb, 0x54, 0x7e, 0x7c, 0x3b, 0x2e, 0x49, 0xb3, 0xc7, 0x96, 0xc5, 0x08, 0xe7, 0xcf,
-	0x04, 0x73, 0x3c, 0xdb, 0x5c, 0x4a, 0x95, 0x36, 0x3c, 0x88, 0xcf, 0xae, 0x64, 0x6b, 0xa0, 0x91,
-	0x47, 0x65, 0x3d, 0x05, 0xaa, 0xc7, 0x06, 0x9d, 0xdc, 0xe5, 0xaf, 0xa3, 0xcc, 0x97, 0xf9, 0xa4,
-	0x09, 0x4c, 0xb9, 0xa3, 0x7d, 0xf2, 0x7e, 0x3e, 0x69, 0x2e, 0xcf, 0xfa, 0x30, 0x9f, 0x34, 0xef,
-	0x24, 0x05, 0x5f, 0x2c, 0x4a, 0x4f, 0x55, 0x5a, 0xaf, 0xc2, 0x72, 0x2a, 0x64, 0x12, 0xee, 0x53,
-	0x8f, 0x93, 0xfa, 0x67, 0x00, 0x0f, 0xbb, 0xdc, 0x3e, 0xa5, 0x5c, 0x98, 0x74, 0xe4, 0x59, 0xad,
-	0x27, 0x58, 0x60, 0xa5, 0x0d, 0xf3, 0x3e, 0x66, 0xc2, 0xe9, 0x3b, 0x3e, 0xf6, 0xc4, 0x4e, 0xb8,
-	0x55, 0xb1, 0x52, 0x83, 0x05, 0x16, 0x9e, 0xd4, 0x6b, 0xf5, 0x2c, 0x2c, 0x70, 0x04, 0x59, 0x30,
-	0x21, 0x5b, 0x9c, 0x1e, 0x43, 0xac, 0xee, 0x09, 0x31, 0x8e, 0xb6, 0x62, 0x2c, 0xeb, 0xaa, 0xdf,
-	0x82, 0xd5, 0x8d, 0x42, 0x17, 0x18, 0x9f, 0xb2, 0xeb, 0x18, 0xe8, 0xbf, 0x31, 0x9e, 0x27, 0x18,
-	0x28, 0xc1, 0xd8, 0x6b, 0xe4, 0x11, 0xda, 0xb8, 0xab, 0x0d, 0x57, 0x7d, 0x39, 0x7d, 0xea, 0x09,
-	0x16, 0x48, 0xf4, 0x28, 0xa0, 0x3e, 0x84, 0xc5, 0x54, 0x5a, 0xb9, 0x09, 0xf7, 0xde, 0x10, 0xf9,
-	0x80, 0xcc, 0x70, 0xaa, 0x94, 0xe0, 0xfe, 0x18, 0x0f, 0x47, 0x44, 0xb6, 0x2e, 0x5e, 0xb4, 0xb3,
-	0x0f, 0xc0, 0x3f, 0x75, 0x0e, 0xa5, 0x3b, 0x87, 0x56, 0x3b, 0x87, 0xbe, 0x66, 0xe1, 0x5e, 0x97,
-	0xdb, 0xca, 0x19, 0x2c, 0xac, 0xbd, 0xee, 0xda, 0x36, 0xd2, 0x55, 0x85, 0xda, 0xd8, 0xa5, 0x48,
-	0x3c, 0x94, 0x57, 0xf0, 0x46, 0xea, 0x81, 0xd5, 0xff, 0xda, 0xc7, 0x48, 0xa3, 0x36, 0x77, 0x6b,
-	0xb6, 0x3a, 0xa0, 0x6b, 0x38, 0xa0, 0x6b, 0x38, 0xac, 0xf5, 0x49, 0xdd, 0x7f, 0x17, 0xfe, 0x11,
-	0x3b, 0x2f, 0x2f, 0xa7, 0x1a, 0xb8, 0x9a, 0x6a, 0xe0, 0xf7, 0x54, 0x03, 0x1f, 0x67, 0x5a, 0xe6,
-	0x6a, 0xa6, 0x65, 0x7e, 0xce, 0xb4, 0xcc, 0xd9, 0x23, 0xdb, 0x11, 0x83, 0xd1, 0xb9, 0xde, 0xa7,
-	0xae, 0xf1, 0x1a, 0x07, 0x16, 0xf1, 0xde, 0x3a, 0x9e, 0x35, 0x24, 0x06, 0x11, 0x03, 0x8b, 0x78,
-	0x63, 0xc2, 0x8e, 0xd1, 0x5d, 0x74, 0x62, 0x6c, 0xde, 0x96, 0x08, 0x7c, 0xc2, 0xcf, 0x0f, 0xa2,
-	0x2f, 0xcd, 0xbd, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x06, 0x6c, 0x4a, 0xb5, 0x11, 0x05, 0x00,
-	0x00,
+	// 664 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x95, 0xbf, 0x6f, 0xd3, 0x40,
+	0x14, 0xc7, 0xe3, 0x46, 0xad, 0xd4, 0xd7, 0xd2, 0x50, 0xab, 0x28, 0xa9, 0x01, 0x37, 0x78, 0xa0,
+	0x51, 0xa4, 0xda, 0xf4, 0xa8, 0x10, 0x8a, 0x00, 0x89, 0x02, 0x63, 0xa5, 0x2a, 0x2d, 0x12, 0xea,
+	0x12, 0xae, 0xf1, 0xc9, 0x31, 0xc4, 0x3e, 0xeb, 0xee, 0x52, 0x9a, 0x0d, 0x31, 0x32, 0x31, 0xb3,
+	0x31, 0xc1, 0xd8, 0x81, 0x09, 0xfe, 0x81, 0x8e, 0x15, 0x13, 0x13, 0x42, 0xed, 0xd0, 0x95, 0x3f,
+	0x01, 0xd9, 0x3e, 0x27, 0xb1, 0x93, 0xfe, 0x80, 0x2c, 0xb9, 0xbb, 0xf7, 0x7d, 0xf7, 0xde, 0xfb,
+	0x3c, 0xbf, 0xd8, 0x50, 0xf2, 0xba, 0x4d, 0xd2, 0x76, 0xb1, 0x95, 0xac, 0x62, 0xdf, 0x0c, 0x18,
+	0x15, 0x54, 0x2d, 0x48, 0x8b, 0x29, 0x57, 0x6d, 0x1e, 0x7b, 0xae, 0x4f, 0xad, 0xe8, 0x37, 0xf6,
+	0xd1, 0x8a, 0x4d, 0xca, 0x3d, 0xca, 0x2d, 0x8f, 0x3b, 0xd6, 0xde, 0x6a, 0xb8, 0x48, 0x61, 0x31,
+	0x16, 0x1a, 0xd1, 0xc9, 0x8a, 0x0f, 0x52, 0x5a, 0x70, 0xa8, 0x43, 0x63, 0x7b, 0xb8, 0x93, 0xd6,
+	0x1b, 0xd9, 0x3a, 0x02, 0xcc, 0xb0, 0x27, 0xef, 0x18, 0xdf, 0x15, 0x28, 0x6c, 0x70, 0xe7, 0x79,
+	0x60, 0x63, 0x41, 0x36, 0x23, 0x45, 0xbd, 0x07, 0xd3, 0xb8, 0x23, 0x5a, 0x94, 0xb9, 0xa2, 0x5b,
+	0x52, 0xca, 0x4a, 0x65, 0x7a, 0xbd, 0xf4, 0xe3, 0xeb, 0xca, 0x82, 0x4c, 0xf6, 0xd8, 0xb6, 0x19,
+	0xe1, 0x7c, 0x4b, 0x30, 0xd7, 0x77, 0xea, 0x7d, 0x57, 0xb5, 0x06, 0x53, 0x71, 0xec, 0xd2, 0x44,
+	0x59, 0xa9, 0xcc, 0xa0, 0xa2, 0x99, 0x01, 0x35, 0xe3, 0x04, 0xeb, 0xd3, 0x87, 0xbf, 0x96, 0x72,
+	0x5f, 0x4e, 0x0f, 0xaa, 0x4a, 0x5d, 0xde, 0xa8, 0xad, 0xbd, 0x3b, 0x3d, 0xa8, 0xf6, 0x63, 0xbd,
+	0x3f, 0x3d, 0xa8, 0xde, 0x4a, 0x0a, 0xde, 0xef, 0x95, 0x9e, 0xa9, 0xd4, 0x58, 0x84, 0x62, 0xc6,
+	0x54, 0x27, 0x3c, 0xa0, 0x3e, 0x27, 0xc6, 0x67, 0x05, 0xe6, 0x37, 0xb8, 0xb3, 0x49, 0xb9, 0xa8,
+	0xd3, 0x8e, 0x6f, 0xaf, 0x3e, 0xc5, 0x02, 0xab, 0x35, 0x98, 0x09, 0x30, 0x13, 0x6e, 0xd3, 0x0d,
+	0xb0, 0x2f, 0x2e, 0x84, 0x1b, 0x74, 0x56, 0xcb, 0x30, 0xcb, 0xc2, 0x48, 0x8d, 0xd5, 0x86, 0x8d,
+	0x05, 0x8e, 0x20, 0x67, 0xeb, 0xc0, 0x7a, 0xd1, 0x63, 0x88, 0xc1, 0x3b, 0x21, 0xc6, 0xd2, 0x48,
+	0x8c, 0x7e, 0x5d, 0xc6, 0x75, 0x58, 0x1c, 0x2a, 0xb4, 0x87, 0xf1, 0x71, 0x22, 0x8d, 0x81, 0xc6,
+	0xc6, 0xd8, 0x4e, 0x30, 0x50, 0x82, 0x91, 0xaf, 0xcc, 0x20, 0x34, 0xf4, 0xac, 0x86, 0xb2, 0x9a,
+	0xfd, 0xed, 0x33, 0x5f, 0xb0, 0xae, 0x44, 0x8f, 0x0c, 0xda, 0x43, 0x28, 0x64, 0x64, 0xf5, 0x2a,
+	0xe4, 0x5f, 0x13, 0x39, 0x40, 0xf5, 0x70, 0xab, 0x2e, 0xc0, 0xe4, 0x1e, 0x6e, 0x77, 0x88, 0x6c,
+	0x5d, 0x7c, 0xa8, 0x4d, 0xdc, 0x57, 0xfe, 0xab, 0x73, 0x28, 0xdb, 0x39, 0x94, 0xea, 0xdc, 0x27,
+	0x05, 0xae, 0x48, 0xf5, 0x09, 0xf5, 0x3c, 0x57, 0x8c, 0xd5, 0x35, 0x1d, 0xa0, 0x19, 0x45, 0xf1,
+	0x88, 0x2f, 0x92, 0x47, 0xdf, 0xb7, 0xfc, 0x2b, 0x40, 0x5c, 0x91, 0x51, 0x84, 0x6b, 0x29, 0x43,
+	0xaf, 0xf8, 0x6f, 0x4a, 0x4f, 0xd9, 0x72, 0x1d, 0x1f, 0x8b, 0x0e, 0x23, 0x5b, 0x2d, 0xcc, 0xc8,
+	0x58, 0x10, 0xcb, 0x50, 0xe0, 0x49, 0xb4, 0x06, 0x0f, 0xc3, 0x49, 0x92, 0x39, 0x9e, 0x4a, 0x52,
+	0x7b, 0x30, 0x8a, 0x66, 0xf9, 0x4c, 0x9a, 0x74, 0x89, 0xc6, 0x12, 0xdc, 0x1c, 0x29, 0x24, 0x74,
+	0xe8, 0x4f, 0x1e, 0xf2, 0x1b, 0xdc, 0x51, 0x77, 0x60, 0x36, 0xf5, 0xe2, 0x29, 0x8f, 0x1a, 0xc2,
+	0x41, 0x0f, 0xad, 0x72, 0x91, 0x47, 0x92, 0x43, 0x7d, 0x09, 0x73, 0x99, 0xff, 0xbe, 0x71, 0xee,
+	0x88, 0x47, 0x3e, 0x5a, 0xf5, 0x62, 0x9f, 0x91, 0x19, 0xd0, 0x25, 0x32, 0xa0, 0x4b, 0x64, 0x48,
+	0x8d, 0xb0, 0xba, 0x0d, 0x30, 0x30, 0xbe, 0xfa, 0x59, 0x37, 0x63, 0x5d, 0xbb, 0x7d, 0xbe, 0xde,
+	0x8b, 0xda, 0x06, 0x75, 0xc4, 0x5c, 0x9d, 0x79, 0x3b, 0xed, 0xa7, 0x99, 0x97, 0xf3, 0x4b, 0xb2,
+	0x69, 0x93, 0x6f, 0xc3, 0xf7, 0xfc, 0xfa, 0x8b, 0xc3, 0x63, 0x5d, 0x39, 0x3a, 0xd6, 0x95, 0xdf,
+	0xc7, 0xba, 0xf2, 0xe1, 0x44, 0xcf, 0x1d, 0x9d, 0xe8, 0xb9, 0x9f, 0x27, 0x7a, 0x6e, 0xe7, 0x91,
+	0xe3, 0x8a, 0x56, 0x67, 0xd7, 0x6c, 0x52, 0xcf, 0x7a, 0x85, 0xbb, 0x36, 0xf1, 0xdf, 0xb8, 0xbe,
+	0xdd, 0x26, 0x16, 0x11, 0x2d, 0x9b, 0xf8, 0x7b, 0x84, 0xad, 0xa0, 0x3b, 0x68, 0xcd, 0x1a, 0x9e,
+	0x3e, 0xd1, 0x0d, 0x08, 0xdf, 0x9d, 0x8a, 0x3e, 0x64, 0x77, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff,
+	0xb0, 0x52, 0xb6, 0x83, 0x70, 0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -383,6 +576,12 @@ type MsgClient interface {
 	// participant This is the second step in the key generation for forst
 	// signatures.
 	PostRound2Data(ctx context.Context, in *MsgPostRound2Data, opts ...grpc.CallOption) (*MsgPostRound2DataResponse, error)
+	// PostCommit defines an operation for posting commits for each
+	// participant.
+	PostCommit(ctx context.Context, in *MsgPostCommit, opts ...grpc.CallOption) (*MsgPostCommitResponse, error)
+	// PostSignatureShare defines an operation for posting signature share for each
+	// participant.
+	PostSignatureShare(ctx context.Context, in *MsgPostSignatureShare, opts ...grpc.CallOption) (*MsgPostSignatureShareResponse, error)
 }
 
 type msgClient struct {
@@ -420,6 +619,24 @@ func (c *msgClient) PostRound2Data(ctx context.Context, in *MsgPostRound2Data, o
 	return out, nil
 }
 
+func (c *msgClient) PostCommit(ctx context.Context, in *MsgPostCommit, opts ...grpc.CallOption) (*MsgPostCommitResponse, error) {
+	out := new(MsgPostCommitResponse)
+	err := c.cc.Invoke(ctx, "/mycelia.mycelia.Msg/PostCommit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) PostSignatureShare(ctx context.Context, in *MsgPostSignatureShare, opts ...grpc.CallOption) (*MsgPostSignatureShareResponse, error) {
+	out := new(MsgPostSignatureShareResponse)
+	err := c.cc.Invoke(ctx, "/mycelia.mycelia.Msg/PostSignatureShare", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
@@ -433,6 +650,12 @@ type MsgServer interface {
 	// participant This is the second step in the key generation for forst
 	// signatures.
 	PostRound2Data(context.Context, *MsgPostRound2Data) (*MsgPostRound2DataResponse, error)
+	// PostCommit defines an operation for posting commits for each
+	// participant.
+	PostCommit(context.Context, *MsgPostCommit) (*MsgPostCommitResponse, error)
+	// PostSignatureShare defines an operation for posting signature share for each
+	// participant.
+	PostSignatureShare(context.Context, *MsgPostSignatureShare) (*MsgPostSignatureShareResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -447,6 +670,12 @@ func (*UnimplementedMsgServer) PostRound1Data(ctx context.Context, req *MsgPostR
 }
 func (*UnimplementedMsgServer) PostRound2Data(ctx context.Context, req *MsgPostRound2Data) (*MsgPostRound2DataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostRound2Data not implemented")
+}
+func (*UnimplementedMsgServer) PostCommit(ctx context.Context, req *MsgPostCommit) (*MsgPostCommitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostCommit not implemented")
+}
+func (*UnimplementedMsgServer) PostSignatureShare(ctx context.Context, req *MsgPostSignatureShare) (*MsgPostSignatureShareResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostSignatureShare not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -507,6 +736,42 @@ func _Msg_PostRound2Data_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_PostCommit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostCommit)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostCommit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycelia.mycelia.Msg/PostCommit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostCommit(ctx, req.(*MsgPostCommit))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_PostSignatureShare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostSignatureShare)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostSignatureShare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycelia.mycelia.Msg/PostSignatureShare",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostSignatureShare(ctx, req.(*MsgPostSignatureShare))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mycelia.mycelia.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -522,6 +787,14 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PostRound2Data",
 			Handler:    _Msg_PostRound2Data_Handler,
+		},
+		{
+			MethodName: "PostCommit",
+			Handler:    _Msg_PostCommit_Handler,
+		},
+		{
+			MethodName: "PostSignatureShare",
+			Handler:    _Msg_PostSignatureShare_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -725,6 +998,126 @@ func (m *MsgPostRound2DataResponse) MarshalToSizedBuffer(dAtA []byte) (int, erro
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgPostCommit) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostCommit) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostCommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Commitment) > 0 {
+		i -= len(m.Commitment)
+		copy(dAtA[i:], m.Commitment)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Commitment)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Participant) > 0 {
+		i -= len(m.Participant)
+		copy(dAtA[i:], m.Participant)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Participant)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgPostCommitResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostCommitResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostCommitResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgPostSignatureShare) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostSignatureShare) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostSignatureShare) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SignatureShare) > 0 {
+		i -= len(m.SignatureShare)
+		copy(dAtA[i:], m.SignatureShare)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SignatureShare)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Participant) > 0 {
+		i -= len(m.Participant)
+		copy(dAtA[i:], m.Participant)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Participant)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgPostSignatureShareResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostSignatureShareResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostSignatureShareResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -812,6 +1205,58 @@ func (m *MsgPostRound2Data) Size() (n int) {
 }
 
 func (m *MsgPostRound2DataResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgPostCommit) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Participant)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Commitment)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgPostCommitResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgPostSignatureShare) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Participant)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SignatureShare)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgPostSignatureShareResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1394,6 +1839,338 @@ func (m *MsgPostRound2DataResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgPostRound2DataResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostCommit) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostCommit: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostCommit: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Participant = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Commitment", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Commitment = append(m.Commitment[:0], dAtA[iNdEx:postIndex]...)
+			if m.Commitment == nil {
+				m.Commitment = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostCommitResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostCommitResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostCommitResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostSignatureShare) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostSignatureShare: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostSignatureShare: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Participant = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SignatureShare", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SignatureShare = append(m.SignatureShare[:0], dAtA[iNdEx:postIndex]...)
+			if m.SignatureShare == nil {
+				m.SignatureShare = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostSignatureShareResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostSignatureShareResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostSignatureShareResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
