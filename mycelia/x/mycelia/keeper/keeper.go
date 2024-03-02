@@ -8,6 +8,7 @@ import (
 	"cosmossdk.io/core/store"
 	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
+	"github.com/bytemare/frost"
 	"github.com/bytemare/frost/dkg"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/runtime"
@@ -48,8 +49,10 @@ func NewKeeper(
 }
 
 const (
-	Round1DataPrefix byte = 0x01
-	Round2DataPrefix byte = 0x02
+	Round1DataPrefix         byte = 0x01
+	Round2DataPrefix         byte = 0x02
+	CommitDataPrefix         byte = 0x03
+	SignatureShareDataPrefix byte = 0x04
 )
 
 func (k Keeper) postRound1Data(ctx context.Context, participant sdk.AccAddress, round1Data *dkg.Round1Data) error {
@@ -101,6 +104,30 @@ func getRound2DataKey(identifier string) []byte {
 	return key
 }
 
+func (k Keeper) postCommitment(ctx context.Context, participant sdk.AccAddress, commitment *frost.Commitment) error {
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	bz := commitment.Encode()
+	store.Set(getCommitDataKey(participant), bz)
+	return nil
+}
+
+func getCommitDataKey(participant sdk.AccAddress) []byte {
+	key := append([]byte{CommitDataPrefix}, []byte(participant)...)
+	return key
+}
+
+func (k Keeper) postSignatureShare(ctx context.Context, participant sdk.AccAddress, signatureShare *frost.SignatureShare) error {
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	bz := signatureShare.Encode()
+	store.Set(getSignatureShareDataKey(participant), bz)
+	return nil
+}
+
+func getSignatureShareDataKey(participant sdk.AccAddress) []byte {
+	key := append([]byte{SignatureShareDataPrefix}, []byte(participant)...)
+	return key
+}
+
 func (k Keeper) GetRound1Data(ctx context.Context) ([]*dkg.Round1Data, error) {
 	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	iter := storetypes.KVStorePrefixIterator(store, []byte{Round1DataPrefix})
@@ -129,6 +156,44 @@ func (k Keeper) GetRound2Data(ctx context.Context, identifier string) ([]*dkg.Ro
 	}
 
 	return accumulatedRound2Data, nil
+}
+
+func (k Keeper) GetCommits(ctx context.Context) (frost.CommitmentList, error) {
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	iter := storetypes.KVStorePrefixIterator(store, []byte{CommitDataPrefix})
+	defer iter.Close()
+
+	var commits frost.CommitmentList
+	for ; iter.Valid(); iter.Next() {
+		commit, err := frost.DecodeCommitment(frost.Secp256k1, iter.Value())
+		if err != nil {
+			return nil, fmt.Errorf("error decoding commitment, %v", err)
+		}
+
+		commits = append(commits, commit)
+	}
+
+	return commits, nil
+}
+
+func (k Keeper) GetSignatureShares(ctx context.Context) ([]*frost.SignatureShare, error) {
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	config := frost.Secp256k1.Configuration()
+
+	iter := storetypes.KVStorePrefixIterator(store, []byte{CommitDataPrefix})
+	defer iter.Close()
+
+	var signatureShares []*frost.SignatureShare
+	for ; iter.Valid(); iter.Next() {
+		signatureShare, err := config.DecodeSignatureShare(iter.Value())
+		if err != nil {
+			return nil, fmt.Errorf("error decoding signature share, %v", err)
+		}
+
+		signatureShares = append(signatureShares, signatureShare)
+	}
+
+	return signatureShares, nil
 }
 
 // GetAuthority returns the module's authority.

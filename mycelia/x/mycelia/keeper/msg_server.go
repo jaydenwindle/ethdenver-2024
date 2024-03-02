@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/bytemare/frost"
 	"github.com/bytemare/frost/dkg"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/types"
@@ -63,10 +64,39 @@ func (s msgServer) PostRound2Data(ctx context.Context, msg *types.MsgPostRound2D
 	return &types.MsgPostRound2DataResponse{}, nil
 }
 
-func (s msgServer) PostCommit(context.Context, *types.MsgPostCommit) (*types.MsgPostCommitResponse, error) {
-	return nil, nil
+func (s msgServer) PostCommit(ctx context.Context, msg *types.MsgPostCommit) (*types.MsgPostCommitResponse, error) {
+	participant, err := sdk.AccAddressFromBech32(msg.Participant)
+	if err != nil {
+		return nil, fmt.Errorf("invalid participant address, %w", err)
+	}
+
+	commitment, err := frost.DecodeCommitment(frost.Secp256k1, msg.Commitment)
+	if err != nil {
+		return nil, fmt.Errorf("error decoding commitment, %v", err)
+	}
+
+	if err := s.Keeper.postCommitment(ctx, participant, commitment); err != nil {
+		return nil, fmt.Errorf("falied to post commit, %v", err)
+	}
+
+	return &types.MsgPostCommitResponse{}, nil
 }
 
-func (s msgServer) PostSignatureShare(context.Context, *types.MsgPostSignatureShare) (*types.MsgPostSignatureShareResponse, error) {
-	return nil, nil
+func (s msgServer) PostSignatureShare(ctx context.Context, msg *types.MsgPostSignatureShare) (*types.MsgPostSignatureShareResponse, error) {
+	participant, err := sdk.AccAddressFromBech32(msg.Participant)
+	if err != nil {
+		return nil, fmt.Errorf("invalid participant address, %w", err)
+	}
+
+	config := frost.Secp256k1.Configuration()
+	signatureShare, err := config.DecodeSignatureShare(msg.SignatureShare)
+	if err != nil {
+		return nil, fmt.Errorf("error decoding signature share, %v", err)
+	}
+
+	if err := s.Keeper.postSignatureShare(ctx, participant, signatureShare); err != nil {
+		return nil, fmt.Errorf("falied to post signature share, %v", err)
+	}
+
+	return &types.MsgPostSignatureShareResponse{}, nil
 }

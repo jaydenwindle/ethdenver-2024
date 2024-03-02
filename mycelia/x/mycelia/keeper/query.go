@@ -42,6 +42,14 @@ func (k Keeper) Round2Data(ctx context.Context, req *types.QueryRound2Data) (*ty
 	}, nil
 }
 
-func (k Keeper) Commits(context.Context, *types.QueryCommits) (*types.QueryCommitsResponse, error) {
-	return nil, nil
+func (k Keeper) Commits(ctx context.Context, req *types.QueryCommits) (*types.QueryCommitsResponse, error) {
+	commits, err := k.GetCommits(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("cannont get commits, %v", err)
+	}
+	bz := commits.Encode()
+
+	return &types.QueryCommitsResponse{
+		Commits: bz,
+	}, nil
 }
