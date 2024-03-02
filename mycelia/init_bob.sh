@@ -26,4 +26,3 @@ sed -i '' 's/seeds = \"\"/seeds = \"'$NODE1_ID'@localhost:26656\"/' private/.$MO
 sed -i '' 's/persistent_peers = \"\"/persistent_peers = \"'$NODE1_ID'@localhost:26656\"/' private/.$MONIKER_2/config/config.toml
 
 $APP start --minimum-gas-prices 0.001stake --home ./private/.$MONIKER_2
-

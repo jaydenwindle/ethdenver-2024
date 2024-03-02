@@ -23,20 +23,24 @@ $APP keys add $ACCOUNT_2 --home ./private/.$MONIKER_2 --keyring-backend $KEYRING
 $APP keys list --home ./private/.$MONIKER_1 --keyring-backend $KEYRING
 $APP keys list --home ./private/.$MONIKER_2 --keyring-backend $KEYRING
 
-DENOM=$(jq -r .app_state.staking.params.bond_denom ./private/.$MONIKER_1/config/genesis.json) 
+DENOM=$(jq -r .app_state.staking.params.bond_denom ./private/.$MONIKER_1/config/genesis.json)
 
 ADDRESS_1=$($APP keys show $ACCOUNT_1 -a --home ./private/.$MONIKER_1 --keyring-backend $KEYRING)
 echo "ADDRESS_1: $ADDRESS_1"
 ADDRESS_2=$($APP keys show $ACCOUNT_2 -a --home ./private/.$MONIKER_2 --keyring-backend $KEYRING)
 echo "ADDRESS_2: $ADDRESS_2"
 
-$APP genesis add-genesis-account $ADDRESS_1  1000000000000000$DENOM --home ./private/.$MONIKER_1
-$APP genesis add-genesis-account $ADDRESS_2  1000000000000000$DENOM --home ./private/.$MONIKER_1
+$APP genesis add-genesis-account $ADDRESS_1 1000000000000000$DENOM --home ./private/.$MONIKER_1
+$APP genesis add-genesis-account $ADDRESS_2 1000000000000000$DENOM --home ./private/.$MONIKER_1
 
-$APP genesis gentx $ACCOUNT_1  70000000000000$DENOM --home ./private/.$MONIKER_1 --keyring-backend $KEYRING --chain-id $CHAIN_ID
+$APP genesis gentx $ACCOUNT_1 70000000000000$DENOM --home ./private/.$MONIKER_1 --keyring-backend $KEYRING --chain-id $CHAIN_ID
 
 $APP genesis collect-gentxs --home ./private/.$MONIKER_1
 
 $APP genesis validate --home ./private/.$MONIKER_1
 
+sed -i '' '/^\[api\]$/,/^\[/ s/enable = .*/enable = true/' ./private/.$MONIKER_1/config/app.toml
+sed -i '' '/^\[api\]$/,/^\[/ s/enabled-unsafe-cors = .*/enabled-unsafe-cors = true/' ./private/.$MONIKER_1/config/app.toml
+
 $APP start --minimum-gas-prices 0.001$DENOM --home ./private/.$MONIKER_1
+

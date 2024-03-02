@@ -1,0 +1,154 @@
+swagger: '2.0'
+info:
+  title: HTTP API Console mycelia.mycelia
+  name: ''
+  description: ''
+paths:
+  /ethdenver-2024/mycelia/mycelia/params:
+    get:
+      operationId: Query_Params
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /ethdenver-2024/mycelia/mycelia/round1data:
+    get:
+      operationId: Query_Round1Data
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              accumlated_round_1_data:
+                type: string
+                format: byte
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /ethdenver-2024/mycelia/mycelia/round2data:
+    get:
+      operationId: Query_Round2Data
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              accumlated_round_2_data:
+                type: string
+                format: byte
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: identifier
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
+definitions:
+  Any:
+    type: object
+    properties:
+      '@type':
+        type: string
+    additionalProperties: {}
+  Status:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      details:
+        type: array
+        items:
+          type: object
+          properties:
+            '@type':
+              type: string
+          additionalProperties: {}
+  Params:
+    type: object
+  QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        type: object
+  QueryRound1DataResponse:
+    type: object
+    properties:
+      accumlated_round_1_data:
+        type: string
+        format: byte
+  QueryRound2DataResponse:
+    type: object
+    properties:
+      accumlated_round_2_data:
+        type: string
+        format: byte
+  MsgPostRound1DataResponse:
+    type: object
+  MsgPostRound2DataResponse:
+    type: object
+  MsgUpdateParamsResponse:
+    type: object
