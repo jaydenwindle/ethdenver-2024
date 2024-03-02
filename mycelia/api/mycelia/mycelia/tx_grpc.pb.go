@@ -24,6 +24,7 @@ const (
 	Msg_PostRound2Data_FullMethodName     = "/mycelia.mycelia.Msg/PostRound2Data"
 	Msg_PostCommit_FullMethodName         = "/mycelia.mycelia.Msg/PostCommit"
 	Msg_PostSignatureShare_FullMethodName = "/mycelia.mycelia.Msg/PostSignatureShare"
+	Msg_PostDataRequests_FullMethodName   = "/mycelia.mycelia.Msg/PostDataRequests"
 )
 
 // MsgClient is the client API for Msg service.
@@ -47,6 +48,8 @@ type MsgClient interface {
 	// PostSignatureShare defines an operation for posting signature share for each
 	// participant.
 	PostSignatureShare(ctx context.Context, in *MsgPostSignatureShare, opts ...grpc.CallOption) (*MsgPostSignatureShareResponse, error)
+	// PostDataRequests defines an operation for posting data requests.
+	PostDataRequests(ctx context.Context, in *MsgPostDataRequests, opts ...grpc.CallOption) (*MsgPostDataRequestsResponse, error)
 }
 
 type msgClient struct {
@@ -102,6 +105,15 @@ func (c *msgClient) PostSignatureShare(ctx context.Context, in *MsgPostSignature
 	return out, nil
 }
 
+func (c *msgClient) PostDataRequests(ctx context.Context, in *MsgPostDataRequests, opts ...grpc.CallOption) (*MsgPostDataRequestsResponse, error) {
+	out := new(MsgPostDataRequestsResponse)
+	err := c.cc.Invoke(ctx, Msg_PostDataRequests_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -123,6 +135,8 @@ type MsgServer interface {
 	// PostSignatureShare defines an operation for posting signature share for each
 	// participant.
 	PostSignatureShare(context.Context, *MsgPostSignatureShare) (*MsgPostSignatureShareResponse, error)
+	// PostDataRequests defines an operation for posting data requests.
+	PostDataRequests(context.Context, *MsgPostDataRequests) (*MsgPostDataRequestsResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -144,6 +158,9 @@ func (UnimplementedMsgServer) PostCommit(context.Context, *MsgPostCommit) (*MsgP
 }
 func (UnimplementedMsgServer) PostSignatureShare(context.Context, *MsgPostSignatureShare) (*MsgPostSignatureShareResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostSignatureShare not implemented")
+}
+func (UnimplementedMsgServer) PostDataRequests(context.Context, *MsgPostDataRequests) (*MsgPostDataRequestsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostDataRequests not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -248,6 +265,24 @@ func _Msg_PostSignatureShare_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_PostDataRequests_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostDataRequests)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostDataRequests(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_PostDataRequests_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostDataRequests(ctx, req.(*MsgPostDataRequests))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -274,6 +309,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PostSignatureShare",
 			Handler:    _Msg_PostSignatureShare_Handler,
+		},
+		{
+			MethodName: "PostDataRequests",
+			Handler:    _Msg_PostDataRequests_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

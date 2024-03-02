@@ -75,7 +75,7 @@ func (s msgServer) PostCommit(ctx context.Context, msg *types.MsgPostCommit) (*t
 		return nil, fmt.Errorf("error decoding commitment, %v", err)
 	}
 
-	if err := s.Keeper.postCommitment(ctx, participant, commitment); err != nil {
+	if err := s.Keeper.postCommitment(ctx, participant, commitment, msg.DataReqId); err != nil {
 		return nil, fmt.Errorf("falied to post commit, %v", err)
 	}
 
@@ -94,9 +94,22 @@ func (s msgServer) PostSignatureShare(ctx context.Context, msg *types.MsgPostSig
 		return nil, fmt.Errorf("error decoding signature share, %v", err)
 	}
 
-	if err := s.Keeper.postSignatureShare(ctx, participant, signatureShare); err != nil {
+	if err := s.Keeper.postSignatureShare(ctx, participant, signatureShare, msg.DataReqId); err != nil {
 		return nil, fmt.Errorf("falied to post signature share, %v", err)
 	}
 
 	return &types.MsgPostSignatureShareResponse{}, nil
+}
+
+func (s msgServer) PostDataRequests(ctx context.Context, msg *types.MsgPostDataRequests) (*types.MsgPostDataRequestsResponse, error) {
+	// data req validation
+	for i := range msg.DataRequests {
+		if msg.DataRequests[i].Status != 0 {
+			return nil, fmt.Errorf("invalid status for %v", msg.DataRequests[i])
+		}
+	}
+	if err := s.Keeper.postDataRequests(ctx, msg.DataRequests); err != nil {
+		return nil, fmt.Errorf("failed to post data requests, %v", err)
+	}
+	return &types.MsgPostDataRequestsResponse{}, nil
 }

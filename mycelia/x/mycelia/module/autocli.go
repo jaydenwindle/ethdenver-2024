@@ -36,6 +36,14 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "commits",
 					Short:     "Get commits from all the participants",
 				},
+				{
+					RpcMethod: "DataRequests",
+					Use:       "data-requests [status]",
+					Short:     "Get data requests by the status",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "status"},
+					},
+				},
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
@@ -64,18 +72,26 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod: "PostCommit",
-					Use:       "post-commit [participant] [commitment]",
+					Use:       "post-commit [participant] [commitment] [data_req_id]",
 					Short:     "post commit for signing from the participant",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-						{ProtoField: "participant"}, {ProtoField: "commitment"},
+						{ProtoField: "participant"}, {ProtoField: "commitment"}, {ProtoField: "data_req_id"},
 					},
 				},
 				{
 					RpcMethod: "PostSignatureShare",
-					Use:       "post-signature-share [participant] [signature_share]",
+					Use:       "post-signature-share [participant] [signature_share] [data_req_id]",
 					Short:     "post signature share from the participant",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-						{ProtoField: "participant"}, {ProtoField: "signature_share"},
+						{ProtoField: "participant"}, {ProtoField: "signature_share"}, {ProtoField: "data_req_id"},
+					},
+				},
+				{
+					RpcMethod: "PostDataRequests",
+					Use:       "post-data-requests [data_requests]",
+					Short:     "post data requests from the user",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "data_requests"},
 					},
 				},
 				// this line is used by ignite scaffolding # autocli/tx

@@ -69,3 +69,20 @@ func (k Keeper) SignatureShares(ctx context.Context, req *types.QuerySignatureSh
 		SignatureShares: signatureSharesEncoded,
 	}, nil
 }
+
+func (k Keeper) DataRequests(ctx context.Context, req *types.QueryRequests) (*types.QueryRequestsResponse, error) {
+	dataRequests, err := k.GetDataRequests(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("cannont get data requests")
+	}
+
+	var dataRequestsByStatus []*types.DataRequest
+	for i := range dataRequests {
+		if dataRequests[i].Status == req.Status {
+			dataRequestsByStatus = append(dataRequestsByStatus, &dataRequests[i])
+		}
+	}
+	return &types.QueryRequestsResponse{
+		DataRequests: dataRequestsByStatus,
+	}, nil
+}

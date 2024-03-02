@@ -1,7 +1,7 @@
 {
   "pubkey": {
     "@type": "/cosmos.crypto.ed25519.PubKey",
-    "key": "Rg6zaHVZxxEeOB92jzcA+bBfZrlxjKXdh3z1heCX6Rg="
+    "key": "Gx7d9kFZgBeBK3rETxMwrDJVo0rVajvX/YcffylgdyY="
   },
   "amount": "70000000000000stake",
   "moniker": "node-2",

@@ -6,6 +6,7 @@ import "cosmos/msg/v1/msg.proto";
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "mycelia/mycelia/params.proto";
+import "mycelia/mycelia/types.proto";
 
 option go_package = "github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/types";
 
@@ -34,6 +35,9 @@ service Msg {
   // PostSignatureShare defines an operation for posting signature share for each
   // participant.
   rpc PostSignatureShare(MsgPostSignatureShare) returns (MsgPostSignatureShareResponse);
+
+  // PostDataRequests defines an operation for posting data requests.
+  rpc PostDataRequests(MsgPostDataRequests) returns (MsgPostDataRequestsResponse);
 }
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
@@ -91,6 +95,7 @@ message MsgPostCommit{
 
   string participant = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
   bytes commitment = 2;
+  uint64 data_req_id =3;
 }
 
 // MsgPostCommitResponse defines the response structure for executing a
@@ -104,8 +109,22 @@ message MsgPostSignatureShare{
 
   string participant = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
   bytes signature_share = 2;
+  uint64 data_req_id =3;
 }
 
-// MsgPostCommitResponse defines the response structure for executing a
-// MsgPostCommit message.
+// MsgPostSignatureShareResponse defines the response structure for executing a
+// MsgPostSignatureShare message.
 message MsgPostSignatureShareResponse{}
+
+// MsgPostSignatureShare is the Msg/PostSignatureShare request type.
+message MsgPostDataRequests{
+  option (cosmos.msg.v1.signer) = "user";
+  option (amino.name) = "mycelia/x/mycelia/MsgPostDataRequests";
+
+  string user =1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  repeated DataRequest data_requests = 2 ;
+}
+
+// MsgPostDataRequestsResponse defines the response structure for executing a
+// MsgPostSignatureShare message.
+message MsgPostDataRequestsResponse{}

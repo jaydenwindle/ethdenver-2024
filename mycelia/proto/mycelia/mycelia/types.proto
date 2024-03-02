@@ -1,0 +1,34 @@
+syntax = "proto3";
+package mycelia.mycelia;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/types";
+
+// DataRequests defines the data requests posted to the state.
+message DataRequest {
+  option (amino.name) = "mycelia/x/mycelia/DataRequests";
+  
+  uint64 id = 1;
+  PayLoad payload = 2;
+  STATUS status = 3;
+  uint64 commit_count = 4;
+  uint64 signature_count = 5;
+}
+
+message PayLoad {
+  option (amino.name) = "mycelia/x/mycelia/PayLoad";
+
+  uint64 chain_id = 1;
+  string contract_address = 2;
+  string function_signture = 3;
+  bytes output = 4;
+}
+
+
+enum STATUS{
+    REQUESTED =0;
+    ATTESTED =1;
+    SIGNED =2;
+}

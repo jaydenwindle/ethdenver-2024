@@ -5,6 +5,7 @@ import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "mycelia/mycelia/params.proto";
+import "mycelia/mycelia/types.proto";
 
 option go_package = "github.com/jaydenwindle/ethdenver-2024/mycelia/x/mycelia/types";
 
@@ -32,7 +33,11 @@ service Query {
 
   // SignatureShares queries the signature shares of all the participants
   rpc SignatureShares(QuerySignatureSharesRequest) returns (QuerySignatureSharesResponse) {
-    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/commits";
+    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/signature-shares";
+  }
+
+  rpc DataRequests(QueryRequests) returns (QueryRequestsResponse) {
+    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/data-requests/{status}";
   }
 }
 
@@ -69,3 +74,9 @@ message QuerySignatureSharesRequest {}
 
 // QuerySignatureSharesResponse is response type for the Query/SignatureShares RPC method.
 message QuerySignatureSharesResponse { repeated bytes signature_shares = 1; }
+
+message QueryRequests { STATUS status = 1; }
+
+message QueryRequestsResponse {
+  repeated DataRequest data_requests = 1;
+}
