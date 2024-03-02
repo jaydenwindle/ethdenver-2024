@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"log"
+	"math/big"
 
 	"mycelia/x/mycelia/types"
 
@@ -12,7 +13,9 @@ import (
 	"github.com/bytemare/frost/dkg"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rpc"
 
 	group "github.com/bytemare/crypto"
@@ -122,7 +125,36 @@ func main() {
 	aliceCommitBytes := createCommit(1)
 	bobCommitBytes := createCommit(2)
 
-	postDataRequest(client, ctx, types.PayLoad{ChainId: 1, ContractAddress: to, FunctionSignture: data, Output: common.Hex2Bytes(result)}, account)
+	postDataRequest(client, ctx, types.PayLoad{ChainId: 1, ContractAddress: to, FunctionSignture: data, Output: common.FromHex(result)}, account)
+
+	uintTy, err := abi.NewType("uint256", "", nil)
+	addressTy, err := abi.NewType("address", "", nil)
+	bytesTy, err := abi.NewType("bytes", "", nil)
+	arguments := abi.Arguments{
+		{
+			Type: uintTy,
+		},
+		{
+			Type: addressTy,
+		},
+		{
+			Type: bytesTy,
+		},
+		{
+			Type: bytesTy,
+		},
+	}
+
+	// Encode the data
+	encodedData, err := arguments.Pack(big.NewInt(1), common.HexToAddress(to), common.FromHex(data), common.FromHex(result))
+	if err != nil {
+		log.Fatalf("Error encoding data: %v", err)
+	}
+
+	fmt.Printf("bytes data: %x\n", common.Hex2Bytes(data))
+	fmt.Printf("Encoded data: %x\n", encodedData)
+
+	message := crypto.Keccak256(encodedData)
 
 	postCommit(client, ctx, addr, aliceCommitBytes, account)
 	postCommit(bobClient, ctx, bobAddr, bobCommitBytes, bobAccount)
@@ -138,8 +170,8 @@ func main() {
 	}
 	commits.Sort()
 
-	aliceShare, err := sign(1, "mycelia test", commits)
-	bobShare, err := sign(2, "mycelia test", commits)
+	aliceShare, err := sign(1, message, commits)
+	bobShare, err := sign(2, message, commits)
 
 	postSignature(client, ctx, addr, aliceShare, account)
 	postSignature(bobClient, ctx, bobAddr, bobShare, bobAccount)
@@ -158,13 +190,21 @@ func main() {
 	}
 	coordinator := configuration.Participant(nil, nil)
 
-	_ = coordinator.ComputeChallenge(commits, []byte("mycelia test"))
-	signature := coordinator.Aggregate(commits, []byte("mycelia test"), sigShares[:])
-	if frost.Verify(configuration.Ciphersuite, []byte("mycelia test"), signature, groupPublicKeyGeneratedInDKG) {
+	challenge := coordinator.ComputeChallenge(commits, message)
+	signature := coordinator.Aggregate(commits, message, sigShares[:])
+	fmt.Println("")
+	if frost.Verify(configuration.Ciphersuite, message, signature, groupPublicKeyGeneratedInDKG) {
 		fmt.Println("Sigature verified")
 	} else {
 		fmt.Println("Sigature verification failed")
 	}
+
+	fmt.Println("")
+	fmt.Println("Message: ", hex.EncodeToString(message))
+	fmt.Println("Public Key: ", hex.EncodeToString(groupPublicKeyGeneratedInDKG.Encode()))
+	fmt.Println("Public Key X: ", hex.EncodeToString(groupPublicKeyGeneratedInDKG.XCoordinate()))
+	fmt.Println("Challenge: ", hex.EncodeToString(challenge.Encode()))
+	fmt.Println("Sigature: ", hex.EncodeToString(signature.Encode()))
 
 	// client.RPC.Start()
 	//
@@ -307,9 +347,9 @@ func postCommit(client cosmosclient.Client, ctx context.Context, participant str
 	fmt.Println(txResp)
 }
 
-func sign(id int, message string, commits frost.CommitmentList) (*frost.SignatureShare, error) {
+func sign(id int, message []byte, commits frost.CommitmentList) (*frost.SignatureShare, error) {
 	participant := participantsGeneratedInDKG[id-1]
-	signatureShare, err := participant.Sign([]byte(message), commits)
+	signatureShare, err := participant.Sign(message, commits)
 	if err != nil {
 		return &frost.SignatureShare{}, err
 	}

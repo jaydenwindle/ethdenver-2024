@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: LGPLv3
 pragma solidity ^0.8.0;
 
+import "forge-std/console.sol";
+
 import {Schnorr} from "./Schnorr.sol";
 
 contract Mycelia {
@@ -15,13 +17,14 @@ contract Mycelia {
 
     function verify(
         uint256 chainId,
-        bytes32 blockHash,
         address _contract,
         bytes calldata data,
         bytes calldata response,
         Schnorr.SchnorrSignature calldata signature
     ) public view returns (bytes memory) {
-        bytes32 request = keccak256(abi.encode(chainId, blockHash, _contract, data, response));
+        bytes32 request = keccak256(abi.encode(chainId, _contract, data, response));
+
+        console.logBytes32(request);
 
         if (request != signature.message) revert InvalidRequest();
 
