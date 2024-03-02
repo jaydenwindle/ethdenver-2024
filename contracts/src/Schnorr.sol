@@ -5,6 +5,10 @@ pragma solidity ^0.8.0;
 import "forge-std/console.sol";
 
 library Schnorr {
+    error EcrecoverFailed();
+    error InvalidSigner();
+    error InvalidSignature();
+
     // secp256k1 group order
     uint256 public constant Q = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141;
 
@@ -13,19 +17,32 @@ library Schnorr {
     // message := 32-byte message
     // e := schnorr signature challenge
     // s := schnorr signature
-    function verify(uint8 parity, bytes32 px, bytes32 message, bytes32 e, bytes32 s) public view returns (bool) {
-        // ecrecover inputs are (m, v, r, s);
-        bytes32 sp = bytes32(Q - mulmod(uint256(s), uint256(px), Q));
-        bytes32 ep = bytes32(Q - mulmod(uint256(e), uint256(px), Q));
+    struct SchnorrSignature {
+        uint8 parity;
+        bytes32 px;
+        bytes32 message;
+        bytes32 e;
+        bytes32 s;
+    }
 
-        require(sp != 0);
+    function recover(SchnorrSignature calldata signature) public pure returns (address) {
+        // ecrecover inputs are (m, v, r, s);
+        bytes32 sp = bytes32(Q - mulmod(uint256(signature.s), uint256(signature.px), Q));
+        bytes32 ep = bytes32(Q - mulmod(uint256(signature.e), uint256(signature.px), Q));
+
+        if (sp == 0) revert InvalidSignature();
+
         // the ecrecover precompile implementation checks that the `r` and `s`
         // inputs are non-zero (in this case, `px` and `ep`), thus we don't need to
         // check if they're zero.
-        address R = ecrecover(sp, parity, px, ep);
-        console.log(R);
-        require(R != address(0), "ecrecover failed");
-        console.logBytes(abi.encodePacked(R, uint8(parity), px, message));
-        return e == keccak256(abi.encodePacked(R, uint8(parity), px, message));
+        address R = ecrecover(sp, signature.parity, signature.px, ep);
+
+        if (R == address(0)) revert InvalidSignature();
+
+        bytes32 challenge = keccak256(abi.encodePacked(R, uint8(signature.parity), signature.px, signature.message));
+
+        if (signature.e != challenge) revert InvalidSignature();
+
+        return R;
     }
 }
