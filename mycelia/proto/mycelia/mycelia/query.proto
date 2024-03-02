@@ -25,8 +25,13 @@ service Query {
     option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/round2data/{identifier}";
   }
 
-  // Commits queries the commits of all the participants in the dkg
+  // Commits queries the commits of all the participants
   rpc Commits(QueryCommits) returns (QueryCommitsResponse) {
+    option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/commits";
+  }
+
+  // SignatureShares queries the signature shares of all the participants
+  rpc SignatureShares(QuerySignatureSharesRequest) returns (QuerySignatureSharesResponse) {
     option (google.api.http).get = "/ethdenver-2024/mycelia/mycelia/commits";
   }
 }
@@ -58,3 +63,9 @@ message QueryCommits {}
 
 // QueryRound1DataResponse is response type for the Query/Commits RPC method.
 message QueryCommitsResponse { bytes commits = 1; }
+
+// QuerySignatureSharesRequest is request type for the Query/SignatureShares RPC method.
+message QuerySignatureSharesRequest {}
+
+// QuerySignatureSharesResponse is response type for the Query/SignatureShares RPC method.
+message QuerySignatureSharesResponse { repeated bytes signature_shares = 1; }

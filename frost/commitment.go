@@ -61,11 +61,11 @@ func DecodeCommitment(cs Ciphersuite, data []byte) (*Commitment, error) {
 		return nil, fmt.Errorf("failed to decode commitment identifier: %w", err)
 	}
 
-	if err := c.HidingNonce.Decode(data[:scalarLength]); err != nil {
+	if err := c.HidingNonce.Decode(data[scalarLength : scalarLength+elementLength]); err != nil {
 		return nil, fmt.Errorf("failed to decode commitment hiding nonce: %w", err)
 	}
 
-	if err := c.BindingNonce.Decode(data[:scalarLength]); err != nil {
+	if err := c.BindingNonce.Decode(data[scalarLength+elementLength : scalarLength+2*elementLength]); err != nil {
 		return nil, fmt.Errorf("failed to decode commitment binding nonce: %w", err)
 	}
 
@@ -106,6 +106,18 @@ func (c CommitmentList) Encode() []byte {
 	}
 
 	return encoded
+}
+
+func DecodeCommitmentList(cs Ciphersuite, data []byte) (CommitmentList, error) {
+	var commits CommitmentList
+	for i := 0; i < len(data); i += 98 {
+		commit, err := DecodeCommitment(cs, data[i:i+98])
+		if err != nil {
+			return nil, err
+		}
+		commits = append(commits, commit)
+	}
+	return commits, nil
 }
 
 // Participants returns the list of participants in the commitment list.

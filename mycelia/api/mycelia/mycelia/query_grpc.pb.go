@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName     = "/mycelia.mycelia.Query/Params"
-	Query_Round1Data_FullMethodName = "/mycelia.mycelia.Query/Round1Data"
-	Query_Round2Data_FullMethodName = "/mycelia.mycelia.Query/Round2Data"
-	Query_Commits_FullMethodName    = "/mycelia.mycelia.Query/Commits"
+	Query_Params_FullMethodName          = "/mycelia.mycelia.Query/Params"
+	Query_Round1Data_FullMethodName      = "/mycelia.mycelia.Query/Round1Data"
+	Query_Round2Data_FullMethodName      = "/mycelia.mycelia.Query/Round2Data"
+	Query_Commits_FullMethodName         = "/mycelia.mycelia.Query/Commits"
+	Query_SignatureShares_FullMethodName = "/mycelia.mycelia.Query/SignatureShares"
 )
 
 // QueryClient is the client API for Query service.
@@ -35,8 +36,10 @@ type QueryClient interface {
 	Round1Data(ctx context.Context, in *QueryRound1Data, opts ...grpc.CallOption) (*QueryRound1DataResponse, error)
 	// Round2Data queries the the round 2 data of all the participants in the dkg
 	Round2Data(ctx context.Context, in *QueryRound2Data, opts ...grpc.CallOption) (*QueryRound2DataResponse, error)
-	// Commits queries the commits of all the participants in the dkg
+	// Commits queries the commits of all the participants
 	Commits(ctx context.Context, in *QueryCommits, opts ...grpc.CallOption) (*QueryCommitsResponse, error)
+	// SignatureShares queries the signature shares of all the participants
+	SignatureShares(ctx context.Context, in *QuerySignatureSharesRequest, opts ...grpc.CallOption) (*QuerySignatureSharesResponse, error)
 }
 
 type queryClient struct {
@@ -83,6 +86,15 @@ func (c *queryClient) Commits(ctx context.Context, in *QueryCommits, opts ...grp
 	return out, nil
 }
 
+func (c *queryClient) SignatureShares(ctx context.Context, in *QuerySignatureSharesRequest, opts ...grpc.CallOption) (*QuerySignatureSharesResponse, error) {
+	out := new(QuerySignatureSharesResponse)
+	err := c.cc.Invoke(ctx, Query_SignatureShares_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -93,8 +105,10 @@ type QueryServer interface {
 	Round1Data(context.Context, *QueryRound1Data) (*QueryRound1DataResponse, error)
 	// Round2Data queries the the round 2 data of all the participants in the dkg
 	Round2Data(context.Context, *QueryRound2Data) (*QueryRound2DataResponse, error)
-	// Commits queries the commits of all the participants in the dkg
+	// Commits queries the commits of all the participants
 	Commits(context.Context, *QueryCommits) (*QueryCommitsResponse, error)
+	// SignatureShares queries the signature shares of all the participants
+	SignatureShares(context.Context, *QuerySignatureSharesRequest) (*QuerySignatureSharesResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -113,6 +127,9 @@ func (UnimplementedQueryServer) Round2Data(context.Context, *QueryRound2Data) (*
 }
 func (UnimplementedQueryServer) Commits(context.Context, *QueryCommits) (*QueryCommitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Commits not implemented")
+}
+func (UnimplementedQueryServer) SignatureShares(context.Context, *QuerySignatureSharesRequest) (*QuerySignatureSharesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SignatureShares not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -199,6 +216,24 @@ func _Query_Commits_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_SignatureShares_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySignatureSharesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SignatureShares(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_SignatureShares_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SignatureShares(ctx, req.(*QuerySignatureSharesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -221,6 +256,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Commits",
 			Handler:    _Query_Commits_Handler,
+		},
+		{
+			MethodName: "SignatureShares",
+			Handler:    _Query_SignatureShares_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

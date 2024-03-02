@@ -3,11 +3,16 @@ module oracle
 go 1.22.0
 
 require (
+	github.com/bytemare/frost v0.0.0-20231127024126-bc6f7874b253
 	github.com/cosmos/cosmos-sdk v0.50.3
 	github.com/ethereum/go-ethereum v1.13.14
 	github.com/ignite/cli v0.25.2
 	github.com/ignite/cli/v28 v28.2.0
 	mycelia v0.0.0-00010101000000-000000000000
+)
+
+replace (
+	github.com/bytemare/frost => ../frost/
 )
 
 require (
@@ -21,6 +26,7 @@ require (
 	cosmossdk.io/store v1.0.2 // indirect
 	cosmossdk.io/x/tx v0.13.0 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
+	filippo.io/nistec v0.0.2 // indirect
 	github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 // indirect
 	github.com/99designs/keyring v1.2.2 // indirect
 	github.com/DataDog/datadog-go v3.2.0+incompatible // indirect
@@ -32,6 +38,11 @@ require (
 	github.com/bits-and-blooms/bitset v1.10.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
+	github.com/bytemare/crypto v0.5.2 // indirect
+	github.com/bytemare/hash v0.1.5 // indirect
+	github.com/bytemare/hash2curve v0.2.2 // indirect
+	github.com/bytemare/secp256k1 v0.1.0 // indirect
+	github.com/bytemare/secret-sharing v0.1.0 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
@@ -91,6 +102,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
+	github.com/gtank/ristretto255 v0.1.2 // indirect
 	github.com/hashicorp/go-hclog v1.5.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
 	github.com/hashicorp/go-metrics v0.5.2 // indirect

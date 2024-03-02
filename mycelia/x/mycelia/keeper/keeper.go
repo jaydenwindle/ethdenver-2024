@@ -180,7 +180,7 @@ func (k Keeper) GetSignatureShares(ctx context.Context) ([]*frost.SignatureShare
 	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	config := frost.Secp256k1.Configuration()
 
-	iter := storetypes.KVStorePrefixIterator(store, []byte{CommitDataPrefix})
+	iter := storetypes.KVStorePrefixIterator(store, []byte{SignatureShareDataPrefix})
 	defer iter.Close()
 
 	var signatureShares []*frost.SignatureShare

@@ -53,3 +53,19 @@ func (k Keeper) Commits(ctx context.Context, req *types.QueryCommits) (*types.Qu
 		Commits: bz,
 	}, nil
 }
+
+func (k Keeper) SignatureShares(ctx context.Context, req *types.QuerySignatureSharesRequest) (*types.QuerySignatureSharesResponse, error) {
+	sigShares, err := k.GetSignatureShares(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("cannont get signature shares, %v", err)
+	}
+	var signatureSharesEncoded [][]byte
+	for i := range sigShares {
+		bz := sigShares[i].Encode()
+		signatureSharesEncoded = append(signatureSharesEncoded, bz)
+	}
+
+	return &types.QuerySignatureSharesResponse{
+		SignatureShares: signatureSharesEncoded,
+	}, nil
+}
