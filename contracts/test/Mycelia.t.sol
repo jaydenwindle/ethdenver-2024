@@ -6,11 +6,14 @@ import {Schnorr} from "../src/Schnorr.sol";
 import {Mycelia} from "../src/Mycelia.sol";
 
 contract MyceliaTest is Test {
+    address oracle = 0x863060863ECc346dAf56566Fb6f3842ECE74A180;
+    Mycelia mycelia;
+
+    function setUp() public {
+        mycelia = new Mycelia(oracle);
+    }
+
     function testDataVerification() public {
-        address oracle = 0x863060863ECc346dAf56566Fb6f3842ECE74A180;
-
-        Mycelia mycelia = new Mycelia(oracle);
-
         Schnorr.SchnorrSignature memory sig = Schnorr.SchnorrSignature({
             parity: 28,
             px: 0x40822101b62ed3ad321fe7c140fea79ee90f43c392f04b3784e7ff9c644ffed4,

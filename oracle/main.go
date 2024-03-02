@@ -31,15 +31,18 @@ var (
 
 var addressPrefix = "cosmos"
 
+var chainId = 1
+var rpcUrl = "https://ethereum.publicnode.com"
+var to = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+var data = "0x70a08231000000000000000000000000a75b7833c78eba62f1c5389f811ef3a7364d44de"
+
 func main() {
-	rpcClient, err := rpc.DialContext(context.Background(), "https://ethereum.publicnode.com")
+	rpcClient, err := rpc.DialContext(context.Background(), rpcUrl)
 	if err != nil {
 		log.Fatalf("Failed to dial rpc: %v", err)
 	}
 	defer rpcClient.Close()
 
-	to := "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
-	data := "0x70a08231000000000000000000000000a75b7833c78eba62f1c5389f811ef3a7364d44de"
 	// Prepare the call parameters, similar to how you prepared them for CallContract
 	callArgs := map[string]interface{}{
 		"to":   to,
@@ -125,7 +128,7 @@ func main() {
 	aliceCommitBytes := createCommit(1)
 	bobCommitBytes := createCommit(2)
 
-	postDataRequest(client, ctx, types.PayLoad{ChainId: 1, ContractAddress: to, FunctionSignture: data, Output: common.FromHex(result)}, account)
+	postDataRequest(client, ctx, types.PayLoad{ChainId: uint64(chainId), ContractAddress: to, FunctionSignture: data, Output: common.FromHex(result)}, account)
 
 	uintTy, err := abi.NewType("uint256", "", nil)
 	addressTy, err := abi.NewType("address", "", nil)
@@ -146,7 +149,7 @@ func main() {
 	}
 
 	// Encode the data
-	encodedData, err := arguments.Pack(big.NewInt(1), common.HexToAddress(to), common.FromHex(data), common.FromHex(result))
+	encodedData, err := arguments.Pack(big.NewInt(int64(chainId)), common.HexToAddress(to), common.FromHex(data), common.FromHex(result))
 	if err != nil {
 		log.Fatalf("Error encoding data: %v", err)
 	}
@@ -202,7 +205,6 @@ func main() {
 	fmt.Println("")
 	fmt.Println("Message: ", hex.EncodeToString(message))
 	fmt.Println("Public Key: ", hex.EncodeToString(groupPublicKeyGeneratedInDKG.Encode()))
-	fmt.Println("Public Key X: ", hex.EncodeToString(groupPublicKeyGeneratedInDKG.XCoordinate()))
 	fmt.Println("Challenge: ", hex.EncodeToString(challenge.Encode()))
 	fmt.Println("Sigature: ", hex.EncodeToString(signature.Encode()))
 
