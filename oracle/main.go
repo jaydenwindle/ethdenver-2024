@@ -12,6 +12,7 @@ import (
 	"github.com/bytemare/frost/dkg"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rpc"
 
 	group "github.com/bytemare/crypto"
@@ -25,6 +26,8 @@ var (
 	groupPublicKeyGeneratedInDKG *group.Element
 )
 
+var addressPrefix = "cosmos"
+
 func main() {
 	rpcClient, err := rpc.DialContext(context.Background(), "https://ethereum.publicnode.com")
 	if err != nil {
@@ -32,10 +35,12 @@ func main() {
 	}
 	defer rpcClient.Close()
 
+	to := "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+	data := "0x70a08231000000000000000000000000a75b7833c78eba62f1c5389f811ef3a7364d44de"
 	// Prepare the call parameters, similar to how you prepared them for CallContract
 	callArgs := map[string]interface{}{
-		"to":   "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-		"data": "0x70a08231000000000000000000000000a75b7833c78eba62f1c5389f811ef3a7364d44de",
+		"to":   to,
+		"data": data,
 	}
 
 	var result string
@@ -52,8 +57,6 @@ func main() {
 	} else {
 		fmt.Println(result)
 	}
-
-	addressPrefix := "cosmos"
 
 	ctx := context.Background()
 	// Create a Cosmos client instance
@@ -119,6 +122,8 @@ func main() {
 	aliceCommitBytes := createCommit(1)
 	bobCommitBytes := createCommit(2)
 
+	postDataRequest(client, ctx, types.PayLoad{ChainId: 1, ContractAddress: to, FunctionSignture: data, Output: common.Hex2Bytes(result)}, account)
+
 	postCommit(client, ctx, addr, aliceCommitBytes, account)
 	postCommit(bobClient, ctx, bobAddr, bobCommitBytes, bobAccount)
 
@@ -161,18 +166,18 @@ func main() {
 		fmt.Println("Sigature verification failed")
 	}
 
-	client.RPC.Start()
-
-	query := "tm.event = 'Tx' AND transfer.sender EXISTS"
-	events, err := client.RPC.Subscribe(context.Background(), "data-requests", query)
-	if err != nil {
-		log.Fatalf("Failed to subscribe to events: %v", err)
-	}
-
-	for event := range events {
-		fmt.Printf("New event: %v\n", event)
-		// Handle the event as needed
-	}
+	// client.RPC.Start()
+	//
+	// query := "tm.event = 'Tx' AND transfer.sender EXISTS"
+	// events, err := client.RPC.Subscribe(context.Background(), "data-requests", query)
+	// if err != nil {
+	// 	log.Fatalf("Failed to subscribe to events: %v", err)
+	// }
+	//
+	// for event := range events {
+	// 	fmt.Printf("New event: %v\n", event)
+	// 	// Handle the event as needed
+	// }
 }
 
 func dkgSim(maximumAmountOfParticipants, threshold int, configuration *frost.Configuration) {
@@ -263,8 +268,31 @@ func createCommit(id int) []byte {
 	return commitment.Encode()
 }
 
+func postDataRequest(client cosmosclient.Client, ctx context.Context, payload types.PayLoad, account cosmosaccount.Account) {
+	addr, err := account.Address(addressPrefix)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	msg := &types.MsgPostDataRequests{
+		User:         addr,
+		DataRequests: []*types.DataRequest{{Id: 1, Payload: &payload}},
+	}
+
+	txResp, err := client.BroadcastTx(ctx, account, msg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Print response from broadcasting a transaction
+	fmt.Print("MsgCommit:\n\n")
+	fmt.Println(txResp)
+}
+
 func postCommit(client cosmosclient.Client, ctx context.Context, participant string, commitment []byte, account cosmosaccount.Account) {
 	msg := &types.MsgPostCommit{
+		DataReqId:   1,
 		Participant: participant,
 		Commitment:  commitment,
 	}
@@ -290,6 +318,7 @@ func sign(id int, message string, commits frost.CommitmentList) (*frost.Signatur
 
 func postSignature(client cosmosclient.Client, ctx context.Context, participant string, signatureShare *frost.SignatureShare, account cosmosaccount.Account) {
 	msg := &types.MsgPostSignatureShare{
+		DataReqId:      1,
 		Participant:    participant,
 		SignatureShare: signatureShare.Encode(),
 	}
